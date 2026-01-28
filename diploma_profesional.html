@@ -632,18 +632,38 @@
       const dayNames = ["L", "M", "X", "J", "V", "S", "D"];
       
       const theoryPhase = {
-        start: new Date('2027-02-01'),
-        end: new Date('2027-03-14')
+        start: new Date(2027, 1, 1),
+        end: new Date(2027, 2, 20)
       };
 
-      let practicalStartBase = new Date('2027-03-15');
+      let practicalStartBase = new Date(2027, 2, 30);
       let practicalBlocks = [];
 
       function calculateBlocks() {
         practicalBlocks = [];
-        let current = new Date(practicalStartBase);
-        const endYear = new Date('2027-12-31');
-        let idx = 1;
+        const endYear = new Date(2027, 11, 31);
+        
+        // Bloque 1: Especial (empieza martes 30 Mar para evitar Semana Santa)
+        let b1 = {
+          index: 1,
+          start: new Date(2027, 2, 30),
+          end: new Date(2027, 4, 2),
+          weeks: []
+        };
+        // Generar las 5 semanas para el bloque 1
+        let p1 = new Date(b1.start);
+        for (let i = 0; i < 5; i++) {
+          let ws = new Date(p1);
+          let we = new Date(p1);
+          we.setDate(we.getDate() + (i === 4 ? 5 : 6)); // La última semana es un día más corta para ajustar al lunes
+          b1.weeks.push({ start: ws, end: we });
+          p1.setDate(p1.getDate() + 7);
+        }
+        practicalBlocks.push(b1);
+
+        // Bloques siguientes: Empiezan en lunes (empezando por el 3 de mayo)
+        let current = new Date(2027, 4, 3);
+        let idx = 2;
 
         while (current <= endYear) {
           let block = {

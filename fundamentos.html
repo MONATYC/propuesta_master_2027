@@ -10,24 +10,93 @@
       rel="stylesheet"
     />
     <style>
+      :root {
+        --primary: #41a86b;
+        --theory-1: #ffd166;
+        --theory-2: #fde2bd;
+      }
       body {
         font-family: "Montserrat", sans-serif;
         background-color: #f5f5f0;
         color: #333333;
       }
       .nav-link:hover { color: #41a86b; }
+      
+      /* Annual Calendar Styles */
+      .annual-calendar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .month {
+        padding: 16px;
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(10px);
+      }
+
+      .month-name {
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 12px;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.85rem;
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+        text-align: center;
+        font-size: 0.75rem;
+      }
+
+      .day-header {
+        font-weight: 700;
+        padding: 6px 0;
+        color: #9ca3af;
+        text-transform: uppercase;
+        font-size: 0.65rem;
+        letter-spacing: 0.5px;
+      }
+
+      .day {
+        padding: 8px 0;
+        border-radius: 8px;
+        position: relative;
+        transition: all 0.2s;
+        font-weight: 500;
+      }
+
+      .day.other-month { opacity: 0.1; }
+
+      .highlight-t1 { background-color: var(--theory-1); font-weight: 700; border-radius: 8px; }
+      .highlight-t2 { background-color: var(--theory-2); font-weight: 700; border-radius: 8px; }
+
+      @keyframes softReveal {
+        from { opacity: 0; filter: blur(4px); }
+        to { opacity: 1; filter: blur(0px); }
+      }
+      .animate-soft-reveal {
+        animation: softReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
     </style>
   </head>
   <body>
     <div class="min-h-screen pb-12">
       <header class="px-4 md:px-6 pt-12 max-w-5xl mx-auto text-center">
-        <nav class="mb-8 flex justify-center gap-6 text-sm font-bold uppercase tracking-widest text-gray-400">
-            <a href="index.html" class="nav-link">Inicio</a>
-            <a href="fundamentos.html" class="nav-link text-[#41a86b]">Fundamentos</a>
-            <a href="diploma_profesional.html" class="nav-link">Diploma Profesional</a>
-            <a href="diploma_investigacion.html" class="nav-link">Diploma Investigación</a>
-            <a href="master.html" class="nav-link">Máster</a>
+        <nav class="mb-12 flex flex-wrap justify-center gap-4 md:gap-8 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-gray-400">
+            <a href="index.html" class="hover:text-[#41a86b] transition-colors">Inicio</a>
+            <a href="fundamentos.html" class="text-[#41a86b] border-b-2 border-[#41a86b] pb-1">Fundamentos</a>
+            <a href="diploma_profesional.html" class="hover:text-[#41a86b] transition-colors">Diploma Profesional</a>
+            <a href="diploma_investigacion.html" class="hover:text-[#41a86b] transition-colors">Diploma Investigación</a>
+            <a href="master.html" class="hover:text-[#41a86b] transition-colors">Máster</a>
         </nav>
+        
         <div class="flex flex-col items-center gap-4 mb-10">
             <div class="flex items-center gap-6 bg-white/60 p-4 rounded-3xl backdrop-blur-md border border-white shadow-sm ring-1 ring-black/5">
                 <img src="https://fundaciomona.org/wp-content/uploads/2023/09/logo.png" alt="Logo MONA" class="h-10 w-auto opacity-90">
@@ -36,25 +105,52 @@
             </div>
             <p class="text-[10px] font-extrabold text-[#41a86b] uppercase tracking-widest leading-tight">Fundació MONA & Fundación de la Universidad de Girona</p>
         </div>
-        <h1 class="text-4xl md:text-6xl font-black text-[#41a86b] uppercase mb-2 leading-tight">Fundamentos de Primatología</h1>
+        
+        <h1 class="text-4xl md:text-6xl font-black text-[#41a86b] uppercase mb-2 leading-tight tracking-tighter">Fundamentos de Primatología</h1>
         <p class="text-xl text-gray-500 font-bold uppercase tracking-tight">Diploma de experto (postgrado) | Fundació MONA & FUdG</p>
       </header>
 
-      <main class="max-w-4xl mx-auto px-4 mt-12 bg-white p-8 rounded-[40px] shadow-sm border border-gray-100">
-        <h2 class="text-2xl font-bold text-[#41a86b] mb-6 uppercase">Contenidos del Módulo</h2>
-        <div class="space-y-6">
-            <div class="border-l-4 border-[#41a86b] pl-6">
-                <h3 class="text-xl font-bold">T1: Biología y Bienestar</h3>
-                <p class="text-gray-600 font-medium">Biología, taxonomía, ecología, conservación, legislación y bienestar.</p>
+      <main class="max-w-5xl mx-auto px-4 mt-12 space-y-8">
+        <!-- Contenidos -->
+        <div class="bg-white p-8 md:p-12 rounded-[40px] shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-[#41a86b] mb-8 uppercase tracking-tighter">Contenidos del Módulo</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="border-l-4 border-[#ffd166] pl-6">
+                    <h3 class="text-xl font-bold">T1: Biología y Bienestar</h3>
+                    <p class="text-gray-600 font-medium mt-2">Biología, taxonomía, ecología, conservación, legislación y bienestar.</p>
+                </div>
+                <div class="border-l-4 border-[#fde2bd] pl-6">
+                    <h3 class="text-xl font-bold">T2: Evolución e Investigación</h3>
+                    <p class="text-gray-600 font-medium mt-2">Evolución y herramientas de investigación aplicada.</p>
+                </div>
             </div>
-            <div class="border-l-4 border-gray-200 pl-6">
-                <h3 class="text-xl font-bold">T2: Evolución e Investigación</h3>
-                <p class="text-gray-600 font-medium">Evolución y herramientas de investigación aplicada.</p>
+            <div class="mt-12 p-6 bg-[#41a86b]/5 rounded-3xl border border-[#41a86b]/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <p class="font-bold text-gray-700 text-lg">Duración: Aprox. 4 Meses</p>
+                    <p class="text-gray-500 text-sm mt-1 uppercase tracking-wider font-black">Bloque Teórico Online 100%</p>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 rounded bg-[#ffd166]"></div>
+                        <span class="text-xs font-bold text-gray-500 uppercase">T1 Feb-Mar</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 rounded bg-[#fde2bd]"></div>
+                        <span class="text-xs font-bold text-gray-500 uppercase">T2 Abr-May</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="mt-12 p-6 bg-[#41a86b]/5 rounded-3xl border border-[#41a86b]/10">
-            <p class="font-bold text-gray-700">Duración estimada: 2 Meses</p>
-            <p class="text-gray-500 text-sm mt-1 uppercase tracking-wider font-black">Bloque Teórico Online</p>
+
+        <!-- Cronograma -->
+        <div class="bg-white p-8 md:p-12 rounded-[40px] shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-extrabold text-[#41a86b] mb-10 uppercase tracking-tighter flex items-center gap-3">
+                <span>📅</span> Cronograma de Referencia 2027
+            </h2>
+            <div class="annual-calendar" id="calendarContainer"></div>
+            <div class="mt-8 pt-8 border-t border-gray-50 text-center">
+                <p class="text-gray-500 font-medium italic">"Las clases se imparten en directo por videoconferencia y quedan grabadas para su consulta posterior."</p>
+            </div>
         </div>
       </main>
       
@@ -62,5 +158,62 @@
         <p class="text-[10px] font-black uppercase tracking-[0.2em]">© 2026 Fundació MONA & Fundación de la Universidad de Girona</p>
       </footer>
     </div>
+
+    <script>
+      const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"];
+      const dayNames = ["L", "M", "X", "J", "V", "S", "D"];
+      
+      const t1Phase = { start: new Date(2027, 1, 1), end: new Date(2027, 2, 20) };
+      const t2Phase = { start: new Date(2027, 3, 2), end: new Date(2027, 4, 9) };
+
+      function getElementTypeAtDate(date) {
+        const d = new Date(date); d.setHours(0,0,0,0);
+        const t1S = new Date(t1Phase.start); t1S.setHours(0,0,0,0);
+        const t1E = new Date(t1Phase.end); t1E.setHours(0,0,0,0);
+        const t2S = new Date(t2Phase.start); t2S.setHours(0,0,0,0);
+        const t2E = new Date(t2Phase.end); t2E.setHours(0,0,0,0);
+
+        if (d >= t1S && d <= t1E) return 't1';
+        if (d >= t2S && d <= t2E) return 't2';
+        return null;
+      }
+
+      function renderCalendar() {
+        const container = document.getElementById('calendarContainer');
+        container.innerHTML = '';
+        
+        for (let m = 0; m < 5; m++) {
+          const mDiv = document.createElement('div');
+          mDiv.className = 'month';
+          mDiv.innerHTML = `<div class="month-name">${months[m]}</div>`;
+          
+          const grid = document.createElement('div');
+          grid.className = 'calendar-grid';
+          dayNames.forEach(d => grid.innerHTML += `<div class="day-header">${d}</div>`);
+
+          const first = new Date(2027, m, 1);
+          let offset = first.getDay() - 1; if (offset === -1) offset = 6;
+          for (let i = 0; i < offset; i++) grid.innerHTML += `<div class="day other-month"></div>`;
+
+          const days = new Date(2027, m + 1, 0).getDate();
+          for (let d = 1; d <= days; d++) {
+            const date = new Date(2027, m, d);
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'day';
+            dayDiv.textContent = d;
+            
+            const type = getElementTypeAtDate(date);
+            if (type === 't1') dayDiv.classList.add('highlight-t1');
+            else if (type === 't2') dayDiv.classList.add('highlight-t2');
+            
+            grid.appendChild(dayDiv);
+          }
+          mDiv.appendChild(grid);
+          container.appendChild(mDiv);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", renderCalendar);
+    </script>
   </body>
 </html>

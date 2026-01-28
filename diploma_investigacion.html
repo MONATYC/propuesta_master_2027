@@ -46,12 +46,26 @@
             <div class="border-l-4 border-[#41a86b] pl-6">
                 <h3 class="text-xl font-bold">T1 + T2 (Online)</h3>
                 <p class="text-gray-600 font-medium">Fundamentos, evolución y herramientas.</p>
+                <div class="flex gap-4 mt-2">
+                    <span class="text-[10px] font-black px-2 py-0.5 bg-[#ffd166] rounded uppercase">T1: Feb-Mar</span>
+                    <span class="text-[10px] font-black px-2 py-0.5 bg-[#fde2bd] rounded uppercase">T2: Abr-May</span>
+                </div>
             </div>
             <div class="border-l-4 border-gray-200 pl-6">
                 <h3 class="text-xl font-bold">T3 (Presencial)</h3>
                 <p class="text-gray-600 font-medium">Toma de datos: recogida, análisis y estadística.</p>
+                <p class="text-[10px] font-black px-2 py-0.5 bg-[#8eecf5] rounded uppercase mt-2 inline-block">T3: 10 de mayo - 20 de junio (6 semanas)</p>
             </div>
         </div>
+
+        <!-- Cronograma -->
+        <div class="mt-12 pt-8 border-t border-gray-100">
+            <h2 class="text-xl font-extrabold text-[#41a86b] mb-8 uppercase tracking-tighter flex items-center gap-3">
+                <span>📅</span> Cronograma de Referencia 2027
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="calendarContainer"></div>
+        </div>
+
         <div class="mt-12 p-6 bg-[#41a86b]/5 rounded-3xl border border-[#41a86b]/10">
             <p class="font-bold text-gray-700">Duración estimada: 6 Meses</p>
             <p class="text-gray-500 text-sm mt-1 uppercase tracking-wider font-black">Acceso a Investigación</p>
@@ -62,5 +76,58 @@
         <p class="text-[10px] font-black uppercase tracking-[0.2em]">© 2026 Fundació MONA & Fundación de la Universidad de Girona</p>
       </footer>
     </div>
+
+    <script>
+      const months = ["Febrero", "Marzo", "Abril", "Mayo", "Junio"];
+      const monthIndices = [1, 2, 3, 4, 5];
+      const dayNames = ["L", "M", "X", "J", "V", "S", "D"];
+      
+      const t1Phase = { start: new Date(2027, 1, 1), end: new Date(2027, 2, 20) };
+      const t2Phase = { start: new Date(2027, 3, 2), end: new Date(2027, 4, 9) };
+      const t3Phase = { start: new Date(2027, 4, 10), end: new Date(2027, 5, 20) };
+
+      function getElementTypeAtDate(date) {
+        const d = new Date(date); d.setHours(0,0,0,0);
+        if (d >= t1Phase.start && d <= t1Phase.end) return 't1';
+        if (d >= t2Phase.start && d <= t2Phase.end) return 't2';
+        if (d >= t3Phase.start && d <= t3Phase.end) return 't3';
+        return null;
+      }
+
+      function renderCalendar() {
+        const container = document.getElementById('calendarContainer');
+        monthIndices.forEach((mIdx, i) => {
+          const monthDate = new Date(2027, mIdx, 1);
+          const mDiv = document.createElement('div');
+          mDiv.className = 'p-4 border border-gray-50 rounded-2xl bg-gray-50/30';
+          mDiv.innerHTML = `<div class="text-[10px] font-black text-[#41a86b] uppercase mb-3 text-center tracking-widest">${months[i]}</div>`;
+          
+          const grid = document.createElement('div');
+          grid.className = 'grid grid-cols-7 gap-1 text-[9px] text-center';
+          dayNames.forEach(d => grid.innerHTML += `<div class="font-bold text-gray-300 mb-1">${d}</div>`);
+
+          let offset = monthDate.getDay() - 1; if (offset === -1) offset = 6;
+          for (let k = 0; k < offset; k++) grid.innerHTML += `<div></div>`;
+
+          const days = new Date(2027, mIdx + 1, 0).getDate();
+          for (let d = 1; d <= days; d++) {
+            const date = new Date(2027, mIdx, d);
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'py-1 rounded-sm';
+            dayDiv.textContent = d;
+            
+            const type = getElementTypeAtDate(date);
+            if (type === 't1') dayDiv.className += ' bg-[#ffd166] font-bold';
+            else if (type === 't2') dayDiv.className += ' bg-[#fde2bd] font-bold';
+             else if (type === 't3') dayDiv.className += ' bg-[#8eecf5] font-bold';
+            
+            grid.appendChild(dayDiv);
+          }
+          mDiv.appendChild(grid);
+          container.appendChild(mDiv);
+        });
+      }
+      document.addEventListener("DOMContentLoaded", renderCalendar);
+    </script>
   </body>
 </html>

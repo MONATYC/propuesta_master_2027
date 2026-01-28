@@ -10,24 +10,99 @@
       rel="stylesheet"
     />
     <style>
+      :root {
+        --primary: #41a86b;
+        --t1: #ffd166;
+        --t2: #fde2bd;
+        --t3: #8eecf5;
+        --tfm: #333333;
+        --practicas: #d4f1be;
+      }
       body {
         font-family: "Montserrat", sans-serif;
         background-color: #333333;
         color: #ffffff;
+        overflow-x: hidden;
       }
       .nav-link:hover { color: #41a86b; }
+      
+      .annual-calendar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .month {
+        padding: 16px;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+      }
+
+      .month-name {
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 12px;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.85rem;
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+        text-align: center;
+        font-size: 0.75rem;
+      }
+
+      .day-header {
+        font-weight: 700;
+        padding: 6px 0;
+        color: #666;
+        text-transform: uppercase;
+        font-size: 0.65rem;
+      }
+
+      .day {
+        padding: 8px 0;
+        border-radius: 8px;
+        position: relative;
+        transition: all 0.2s;
+        font-weight: 500;
+        color: #ccc;
+      }
+
+      .day.other-month { opacity: 0.1; }
+
+      .highlight-t1 { background-color: var(--t1); color: #333; font-weight: 700; }
+      .highlight-t2 { background-color: var(--t2); color: #333; font-weight: 700; }
+      .highlight-t3 { background-color: var(--t3); color: #333; font-weight: 700; }
+      .highlight-tfm { background-color: var(--primary); color: white; font-weight: 700; }
+      .highlight-practicas { background-color: rgba(212, 241, 190, 0.2); border: 1px dashed var(--practicas); }
+
+      @keyframes softReveal {
+        from { opacity: 0; filter: blur(4px); }
+        to { opacity: 1; filter: blur(0px); }
+      }
+      .animate-soft-reveal {
+        animation: softReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
     </style>
   </head>
   <body>
     <div class="min-h-screen pb-12">
       <header class="px-4 md:px-6 pt-12 max-w-5xl mx-auto text-center">
-        <nav class="mb-8 flex justify-center gap-6 text-sm font-bold uppercase tracking-widest text-gray-500">
+        <nav class="mb-12 flex flex-wrap justify-center gap-4 md:gap-8 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-gray-400">
             <a href="index.html" class="nav-link text-gray-400">Inicio</a>
             <a href="fundamentos.html" class="nav-link text-gray-400">Fundamentos</a>
             <a href="diploma_profesional.html" class="nav-link text-gray-400">Diploma Profesional</a>
             <a href="diploma_investigacion.html" class="nav-link text-gray-400">Diploma Investigación</a>
-            <a href="master.html" class="nav-link text-[#41a86b]">Máster</a>
+            <a href="master.html" class="text-[#41a86b] border-b-2 border-[#41a86b] pb-1">Máster</a>
         </nav>
+        
         <div class="flex flex-col items-center gap-4 mb-10">
             <div class="flex items-center gap-6 bg-white/10 p-4 rounded-3xl backdrop-blur-md border border-white/10 shadow-lg">
                 <img src="https://fundaciomona.org/wp-content/uploads/2023/09/logo.png" alt="Logo MONA" class="h-10 w-auto opacity-90 invert grayscale brightness-200">
@@ -36,31 +111,129 @@
             </div>
             <p class="text-[10px] font-extrabold text-[#41a86b] uppercase tracking-widest leading-tight">Fundació MONA & Fundación de la Universidad de Girona</p>
         </div>
-        <h1 class="text-4xl md:text-6xl font-black text-[#41a86b] uppercase mb-2 leading-tight">Máster en Primatología</h1>
-        <p class="text-xl text-gray-300 font-bold uppercase tracking-tight">Máster de formación permanente (postgrado) | Fundació MONA & FUdG</p>
+        
+        <h1 class="text-4xl md:text-7xl font-black text-[#41a86b] uppercase mb-4 leading-tight tracking-tighter">Máster en Primatología</h1>
+        <p class="text-xl md:text-2xl text-gray-300 font-bold uppercase tracking-tight mb-8">Máster de formación permanente (postgrado) | Fundació MONA & FUdG</p>
       </header>
 
-      <main class="max-w-4xl mx-auto px-4 mt-12 bg-white/5 p-8 rounded-[40px] shadow-sm border border-white/10 backdrop-blur-md">
-        <h2 class="text-2xl font-bold text-[#41a86b] mb-6 uppercase">Estructura del Máster</h2>
-        <div class="space-y-6">
-            <div class="border-l-4 border-[#41a86b] pl-6">
-                <h3 class="text-xl font-bold">T1 + T2 + T3</h3>
-                <p class="text-gray-300 font-medium">Teoría completa (Online & Presencial).</p>
+      <main class="max-w-6xl mx-auto px-4 mt-12 space-y-12">
+        <!-- Calendario 2027 -->
+        <div class="bg-white/5 p-8 md:p-12 rounded-[40px] border border-white/10 backdrop-blur-md">
+            <h2 class="text-3xl font-black text-[#41a86b] mb-10 uppercase tracking-tighter flex items-center gap-4">
+                <span>📅</span> Año 2027
+            </h2>
+            
+            <!-- Leyenda -->
+            <div class="flex flex-wrap gap-6 mb-12 p-6 bg-white/5 rounded-3xl border border-white/5">
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 rounded bg-[#ffd166]"></div>
+                    <span class="text-xs font-bold uppercase text-gray-300">T1: Fundamentos (Feb-Mar)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 rounded bg-[#fde2bd]"></div>
+                    <span class="text-xs font-bold uppercase text-gray-300">T2: Evolución (Abr-May)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 rounded bg-[#8eecf5]"></div>
+                    <span class="text-xs font-bold uppercase text-gray-300">T3: Toma de Datos (May-Jun)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 rounded bg-[#41a86b]"></div>
+                    <span class="text-xs font-bold uppercase text-gray-300">Convocatoria TFM</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 rounded-sm border border-dashed border-[#d4f1be] bg-[#d4f1be]/10"></div>
+                    <span class="text-xs font-bold uppercase text-gray-300">Prácticas de Investigación</span>
+                </div>
             </div>
-            <div class="border-l-4 border-[#41a86b] pl-6">
-                <h3 class="text-xl font-bold">PI + TFM</h3>
-                <p class="text-gray-300 font-medium">Prácticas de Investigación + TFM (Nacional o Internacional).</p>
-            </div>
+
+            <div class="annual-calendar" id="calendar2027"></div>
         </div>
-        <div class="mt-12 p-6 bg-[#41a86b]/10 rounded-3xl border border-[#41a86b]/20">
-            <p class="font-bold text-white">Duración: 10 a 16 Meses</p>
-            <p class="text-[#41a86b] text-sm mt-1 uppercase tracking-wider font-black">Máxima Acreditación</p>
+
+        <!-- Calendario 2028 -->
+        <div class="bg-white/5 p-8 md:p-12 rounded-[40px] border border-white/10 backdrop-blur-md">
+            <h2 class="text-3xl font-black text-[#41a86b] mb-10 uppercase tracking-tighter flex items-center gap-4">
+                <span>📅</span> Año 2028
+            </h2>
+            <div class="annual-calendar" id="calendar2028"></div>
+        </div>
+
+        <!-- Notas -->
+        <div class="bg-[#41a86b]/10 p-8 md:p-10 rounded-[40px] border border-[#41a86b]/20">
+            <h3 class="text-xl font-black text-[#41a86b] mb-4 uppercase">Nota sobre las Prácticas e Investigación:</h3>
+            <p class="text-lg text-gray-200 leading-relaxed font-medium">
+                Las prácticas de investigación del Máster son flexibles y se pueden realizar <span class="text-[#41a86b] font-bold">desde el 21 de junio</span> (una vez finalizada la teoría presencial T3) hasta la fecha de entrega de la <span class="text-white font-bold underline decoration-[#41a86b]">1ª convocatoria de TFM</span> (diciembre 2027) o hasta la <span class="text-white font-bold underline decoration-[#41a86b]">2ª convocatoria</span> (junio 2028).
+            </p>
         </div>
       </main>
-      
-      <footer class="text-center py-12 opacity-40">
-        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-white">© 2026 Fundació MONA & Fundación de la Universidad de Girona</p>
+
+      <footer class="text-center py-16 opacity-40">
+        <p class="text-[10px] font-black uppercase tracking-[0.2em]">© 2026 Fundació MONA & Fundación de la Universidad de Girona</p>
       </footer>
     </div>
+
+    <script>
+      const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+      const dayHeaders = ["L", "M", "X", "J", "V", "S", "D"];
+      
+      const phases = {
+        t1: { start: new Date(2027, 1, 1), end: new Date(2027, 2, 20) },
+        t2: { start: new Date(2027, 3, 2), end: new Date(2027, 4, 9) },
+        t3: { start: new Date(2027, 4, 10), end: new Date(2027, 5, 20) },
+        practicas: { start: new Date(2027, 5, 21), end: new Date(2028, 5, 4) },
+        tfm1: { start: new Date(2027, 11, 6), end: new Date(2027, 11, 19) },
+        tfm2: { start: new Date(2028, 5, 5), end: new Date(2028, 5, 18) }
+      };
+
+      function getHighlight(date) {
+        const d = new Date(date); d.setHours(0,0,0,0);
+        
+        if (d >= phases.tfm1.start && d <= phases.tfm1.end) return 'highlight-tfm';
+        if (d >= phases.tfm2.start && d <= phases.tfm2.end) return 'highlight-tfm';
+        if (d >= phases.t1.start && d <= phases.t1.end) return 'highlight-t1';
+        if (d >= phases.t2.start && d <= phases.t2.end) return 'highlight-t2';
+        if (d >= phases.t3.start && d <= phases.t3.end) return 'highlight-t3';
+        if (d >= phases.practicas.start && d <= phases.practicas.end) return 'highlight-practicas';
+        
+        return null;
+      }
+
+      function renderYear(year, containerId, startMonth = 0, endMonth = 11) {
+        const container = document.getElementById(containerId);
+        for (let m = startMonth; m <= endMonth; m++) {
+          const mDiv = document.createElement('div');
+          mDiv.className = 'month';
+          mDiv.innerHTML = `<div class="month-name">${monthNames[m]} ${year}</div>`;
+          
+          const grid = document.createElement('div');
+          grid.className = 'calendar-grid';
+          dayHeaders.forEach(h => grid.innerHTML += `<div class="day-header">${h}</div>`);
+
+          const first = new Date(year, m, 1);
+          let offset = first.getDay() - 1; if (offset === -1) offset = 6;
+          for (let i = 0; i < offset; i++) grid.innerHTML += `<div class="day other-month"></div>`;
+
+          const days = new Date(year, m + 1, 0).getDate();
+          for (let d = 1; d <= days; d++) {
+            const date = new Date(year, m, d);
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'day';
+            dayDiv.textContent = d;
+            
+            const hl = getHighlight(date);
+            if (hl) dayDiv.classList.add(hl);
+            
+            grid.appendChild(dayDiv);
+          }
+          mDiv.appendChild(grid);
+          container.appendChild(mDiv);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderYear(2027, 'calendar2027');
+        renderYear(2028, 'calendar2028', 0, 5);
+      });
+    </script>
   </body>
 </html>
