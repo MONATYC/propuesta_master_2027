@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diploma Profesional de Trabajo con Primates - Fundació MONA & FUdG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #41a86b;
+        --primary-dark: #328554;
+        --bg-cream: #f5f5f0;
+        --text-dark: #333333;
+        --white: #ffffff;
+        
+        --theory-color: #ffd166;
+        --edu-obs-color: #4a90e2; 
+        --care-color: #e67e22;    
+        --project-color: #a29bfe;
+        
+        --block-1: #ffcfd2;
+        --block-2: #fde2bd;
+        --block-3: #fbf8cc;
+        --block-4: #d4f1be;
+        --block-5: #b9fbc0;
+        --block-6: #98f5e1;
+        --block-7: #8eecf5;
+        --block-8: #90dbf4;
+        --block-9: #a3c4f3;
+        --block-10: #cfbaf0;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #f5f5f0;
+        color: #333333;
+        overflow-x: hidden;
+      }
+
+      /* Estado inicial para animación */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        opacity: 0;
+        filter: blur(4px);
+        will-change: opacity, filter;
+      }
+
+      @keyframes softReveal {
+        from {
+          opacity: 0;
+          filter: blur(4px);
+        }
+        to {
+          opacity: 1;
+          filter: blur(0px);
+        }
+      }
+
+      .animate-soft-reveal {
+        animation: softReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      @keyframes fadeInScale {
+        from {
+          opacity: 0;
+          transform: scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeInScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      @media print {
+        body {
+          background: white;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          opacity: 1;
+          filter: none;
+        }
+        .no-print {
+          display: none;
+        }
+      }
+
+      .hover-card:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease;
+      }
+
+      /* Annual Calendar Styles */
+      .annual-calendar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .month {
+        padding: 16px;
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(10px);
+      }
+
+      .month-name {
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 12px;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.85rem;
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+        text-align: center;
+        font-size: 0.75rem;
+      }
+
+      .day-header {
+        font-weight: 700;
+        padding: 6px 0;
+        color: #9ca3af;
+        text-transform: uppercase;
+        font-size: 0.65rem;
+        letter-spacing: 0.5px;
+      }
+
+      .day {
+        padding: 8px 0;
+        border-radius: 8px;
+        position: relative;
+        transition: all 0.2s;
+        font-weight: 500;
+      }
+
+      .day.other-month { opacity: 0.1; }
+
+      .highlight-theory { background-color: var(--theory-color); font-weight: 700; border-radius: 8px; }
+      .highlight-1 { background-color: var(--block-1); font-weight: 700; }
+      .highlight-2 { background-color: var(--block-2); font-weight: 700; }
+      .highlight-3 { background-color: var(--block-3); font-weight: 700; }
+      .highlight-4 { background-color: var(--block-4); font-weight: 700; }
+      .highlight-5 { background-color: var(--block-5); font-weight: 700; }
+      .highlight-6 { background-color: var(--block-6); font-weight: 700; }
+      .highlight-7 { background-color: var(--block-7); font-weight: 700; }
+      .highlight-8 { background-color: var(--block-8); font-weight: 700; }
+      .highlight-9 { background-color: var(--block-9); font-weight: 700; }
+      .highlight-10 { background-color: var(--block-10); font-weight: 700; }
+
+      /* Block Cards */
+      .blocks-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 25px;
+      }
+
+      .block-card {
+        background: var(--white);
+        border-radius: 32px;
+        padding: 28px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        border-left: 8px solid #ddd;
+      }
+
+      .block-card.theory { 
+        border-left-color: var(--theory-color); 
+        background: linear-gradient(135deg, #fffdf5 0%, #fff 100%);
+      }
+      .block-card:hover { 
+        transform: translateY(-5px); 
+        box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+      }
+
+      .block-card.b1 { border-left-color: var(--block-1); }
+      .block-card.b2 { border-left-color: var(--block-2); }
+      .block-card.b3 { border-left-color: var(--block-3); }
+      .block-card.b4 { border-left-color: var(--block-4); }
+      .block-card.b5 { border-left-color: var(--block-5); }
+      .block-card.b6 { border-left-color: var(--block-6); }
+      .block-card.b7 { border-left-color: var(--block-7); }
+      .block-card.b8 { border-left-color: var(--block-8); }
+      .block-card.b9 { border-left-color: var(--block-9); }
+      .block-card.b10 { border-left-color: var(--block-10); }
+
+      .block-tag {
+        font-size: 0.65rem;
+        font-weight: 800;
+        background: #f0f0f0;
+        padding: 5px 12px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .block-dates { 
+        font-size: 1.3rem; 
+        font-weight: 800; 
+        margin-bottom: 16px; 
+        display: block; 
+        color: var(--text-dark); 
+        letter-spacing: -0.5px;
+      }
+
+      .capacity-section {
+        background: #f8fafc;
+        padding: 18px;
+        border-radius: 16px;
+        margin-bottom: 18px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .capacity-title {
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: #64748b;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        display: block;
+        letter-spacing: 1px;
+      }
+
+      .capacity-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+        font-weight: 600;
+      }
+
+      .cap-tag {
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 8px;
+        color: white;
+        font-size: 0.7rem;
+      }
+
+      .cap-edu { background: var(--edu-obs-color); }
+      .cap-care { background: var(--care-color); }
+
+      .week-list { list-style: none; }
+      .week-item {
+        font-size: 0.85rem;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        font-weight: 500;
+      }
+      .week-item:last-child { border-bottom: none; }
+
+      .edit-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 18px;
+        width: 100%;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .edit-btn:hover { 
+        background: var(--primary-dark); 
+        transform: scale(1.02);
+        box-shadow: 0 8px 20px rgba(65, 168, 107, 0.3);
+      }
+
+      /* Summary Section */
+      .summary-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 30px;
+      }
+
+      .summary-box {
+        background: white;
+        border-radius: 32px;
+        padding: 35px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        border-top: 6px solid var(--primary);
+      }
+
+      .summary-box.orange { border-top-color: var(--care-color); }
+      .summary-box.purple { border-top-color: var(--project-color); }
+
+      .summary-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        margin-bottom: 25px;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* ECTS Table */
+      .ects-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+      }
+
+      .ects-table th, .ects-table td {
+        text-align: left;
+        padding: 14px;
+        border-bottom: 1px solid #edf2f7;
+      }
+
+      .ects-table th {
+        color: #64748b;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+      }
+
+      .ects-table tr:last-child td { 
+        border-bottom: none; 
+        font-weight: 800; 
+        color: var(--primary); 
+        font-size: 1.1rem; 
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 10px;
+      }
+
+      .stat-item {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+      }
+
+      .stat-val { 
+        font-size: 4rem; 
+        font-weight: 800; 
+        color: var(--primary); 
+        line-height: 1; 
+        margin-bottom: 8px;
+        letter-spacing: -2px;
+      }
+      .stat-lab { 
+        font-size: 0.9rem; 
+        color: #64748b; 
+        font-weight: 700; 
+        text-transform: uppercase; 
+        letter-spacing: 2px; 
+      }
+
+      .alert-box {
+        background: linear-gradient(135deg, #fff5eb 0%, #fff 100%);
+        border-left: 5px solid var(--care-color);
+        padding: 24px;
+        border-radius: 16px;
+        margin-top: 25px;
+        font-size: 0.9rem;
+        color: #8c4a00;
+        font-weight: 600;
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 40px;
+        border-radius: 32px;
+        width: 100%;
+        max-width: 450px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+      }
+
+      /* Info Pill */
+      .info-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255,255,255,0.8);
+        backdrop-filter: blur(10px);
+        padding: 14px 24px;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        border: 1px solid rgba(0,0,0,0.05);
+      }
+
+      @media (max-width: 768px) {
+        .annual-calendar { grid-template-columns: 1fr; }
+        .summary-wrapper { grid-template-columns: 1fr; }
+        .blocks-container { grid-template-columns: 1fr; }
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate-soft-reveal");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+        document
+          .querySelectorAll("h1, h2, h3, h4, h5, h6")
+          .forEach((h) => observer.observe(h));
+      });
+    </script>
+  </head>
+  <body>
+    <div class="min-h-screen selection:bg-[#41a86b] selection:text-white pb-12">
+      <!-- ========== HEADER ========== -->
+      <header class="px-4 md:px-6 pt-12 md:pt-20 pb-8 max-w-6xl mx-auto text-center">
+        <!-- NAVIGATION -->
+        <nav class="mb-12 flex flex-wrap justify-center gap-4 md:gap-8 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-gray-400">
+            <a href="index.html" class="hover:text-[#41a86b] transition-colors">Inicio</a>
+            <a href="fundamentos.html" class="hover:text-[#41a86b] transition-colors">Fundamentos</a>
+            <a href="diploma_profesional.html" class="text-[#41a86b] border-b-2 border-[#41a86b] pb-1">Diploma Profesional</a>
+            <a href="diploma_investigacion.html" class="hover:text-[#41a86b] transition-colors">Diploma Investigación</a>
+            <a href="master.html" class="hover:text-[#41a86b] transition-colors">Máster</a>
+        </nav>
+
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-[#41a86b] leading-none mb-4 tracking-tighter uppercase">
+          Diploma profesional de trabajo con primates
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-500 font-bold uppercase tracking-tight mb-8">
+          Diploma de especialización (postgrado) | Fundació MONA & FUdG
+        </p>
+        
+        <!-- ORGANIZACIONES PROMOTORAS -->
+        <div class="flex flex-col items-center gap-3 md:gap-4 mb-8">
+          <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 md:gap-10 bg-white/60 p-4 md:p-5 rounded-2xl md:rounded-3xl backdrop-blur-md border border-white shadow-sm ring-1 ring-black/5">
+            <img
+              src="https://fundaciomona.org/wp-content/uploads/2023/09/logo.png"
+              alt="Logo MONA"
+              class="h-10 sm:h-12 w-auto opacity-90 transition-all duration-300 pointer-events-none"
+            />
+            <div class="w-full sm:w-px h-px sm:h-8 bg-gray-200"></div>
+            <img
+              src="https://www.fundacioudg.org/image/fundacio_UdG_25_es.png"
+              alt="Logo FUdG"
+              class="h-10 sm:h-12 w-auto opacity-90 transition-all duration-300 pointer-events-none"
+            />
+          </div>
+          <p class="text-[10px] font-extrabold text-[#41a86b] uppercase tracking-widest leading-tight">Fundació MONA & Fundación de la Universidad de Girona</p>
+        </div>
+
+        <div class="flex gap-4 justify-center flex-wrap">
+          <div class="info-pill" style="border-left: 4px solid var(--theory-color);">
+            <span>🎥</span> Clases online en directo (se grabarán para consulta previa a las prácticas).
+          </div>
+          <div class="info-pill" style="border-left: 4px solid var(--primary);">
+            <span>🎓</span> Carga Total: 30 Créditos ECTS.
+          </div>
+        </div>
+      </header>
+
+      <!-- ========== CALENDARIO ANUAL ========== -->
+      <section class="max-w-6xl mx-auto px-4 md:px-6 mb-12">
+        <div class="bg-white p-6 md:p-8 lg:p-10 rounded-[32px] md:rounded-[40px] shadow-lg border border-gray-100">
+          <h2 class="text-xl md:text-2xl font-extrabold text-[#41a86b] mb-8 uppercase tracking-tighter flex items-center gap-3">
+            <span>📅</span> Cronograma de Referencia 2027
+          </h2>
+          <div class="annual-calendar" id="calendarContainer"></div>
+        </div>
+      </section>
+
+      <!-- ========== DESGLOSE DE BLOQUES ========== -->
+      <section class="max-w-6xl mx-auto px-4 md:px-6 mb-12">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-[#41a86b] mb-8 uppercase tracking-tighter flex items-center gap-3">
+          <span>📦</span> Desglose de Bloques
+        </h2>
+        <div class="blocks-container" id="blocksContainer"></div>
+      </section>
+
+      <!-- ========== RESUMEN ========== -->
+      <section class="max-w-6xl mx-auto px-4 md:px-6 mb-12">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-[#41a86b] mb-8 uppercase tracking-tighter flex items-center gap-3">
+          <span>📈</span> Resumen de Capacidad y Créditos
+        </h2>
+        <div class="summary-wrapper">
+          <!-- Capacidad -->
+          <div class="summary-box">
+            <div class="summary-title">👥 Capacidad Máxima de la Formación</div>
+            <div id="capacityStats"></div>
+            <div class="alert-box">
+              <strong>⚠️ Limitación del Programa:</strong> El aforo total anual está limitado a 18 personas por la rotación obligatoria en el área de Cuidados (máx. 2 alumnos simultáneos).
+            </div>
+          </div>
+
+          <!-- ECTS -->
+          <div class="summary-box purple">
+            <div class="summary-title">📜 Distribución de Carga Académica</div>
+            <table class="ects-table">
+              <thead>
+                <tr>
+                  <th>Concepto</th>
+                  <th>Días / Horas</th>
+                  <th>ECTS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Teoría Online (Común)</td>
+                  <td>112h</td>
+                  <td>14.0</td>
+                </tr>
+                <tr>
+                  <td>Prácticas de Cuidados</td>
+                  <td>25 días (200h)</td>
+                  <td>9.1</td>
+                </tr>
+                <tr>
+                  <td>Observación y Edu. Amb.</td>
+                  <td>25 días (115h)</td>
+                  <td>4.9</td>
+                </tr>
+                <tr>
+                  <td>Proyecto Final</td>
+                  <td>50h</td>
+                  <td>2.0</td>
+                </tr>
+                <tr>
+                  <td><strong>TOTAL PROGRAMA</strong></td>
+                  <td><strong>477h</strong></td>
+                  <td><strong>30.0</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Reserva -->
+          <div class="summary-box" style="border-top-color: #64748b; grid-column: 1 / -1;">
+            <div class="summary-title">📝 Proceso de Reserva y Asignación</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+              <div>
+                <h4 class="text-[#41a86b] font-bold mb-3">📌 Orden de Elección</h4>
+                <p class="text-gray-600 font-semibold leading-relaxed">
+                  La asignación de los bloques de prácticas se realizará estrictamente por <strong>orden de solicitud</strong>. Los alumnos que completen antes su inscripción tendrán prioridad para elegir sus fechas preferidas entre los bloques disponibles.
+                </p>
+              </div>
+              <div>
+                <h4 class="text-gray-500 font-bold mb-3">🔄 Cambios y Cancelaciones</h4>
+                <p class="text-gray-600 font-semibold leading-relaxed">
+                  Se definirá una normativa específica que regulará las posibilidades de cambio de fechas o cancelación de la plaza, para asegurar la viabilidad de los grupos y la rotación de aforos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== FOOTER ========== -->
+      <footer class="max-w-4xl mx-auto px-6 text-center py-12 opacity-40">
+        <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">
+          © 2026 Fundació MONA & Fundación de la Universidad de Girona — Primatología y Bienestar Animal
+        </p>
+      </footer>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="editModal">
+      <div class="modal-content">
+        <h3 class="text-xl font-bold mb-6 text-[#41a86b]">⚙️ Ajustar Calendario</h3>
+        <div style="margin-bottom: 20px;">
+          <label class="block font-bold text-gray-700 mb-2">Inicio Bloque 1 (Lunes)</label>
+          <input type="date" id="editStartDate" class="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-[#41a86b] focus:outline-none transition-colors">
+        </div>
+        <div class="flex gap-3">
+          <button class="flex-1 py-3 px-4 bg-gray-100 text-gray-600 rounded-xl font-bold hover:bg-gray-200 transition-colors" onclick="closeModal()">Cancelar</button>
+          <button class="flex-1 py-3 px-4 bg-[#41a86b] text-white rounded-xl font-bold hover:bg-[#328554] transition-colors" onclick="saveEdit()">Recalcular</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      const dayNames = ["L", "M", "X", "J", "V", "S", "D"];
+      
+      const theoryPhase = {
+        start: new Date('2027-02-01'),
+        end: new Date('2027-03-14')
+      };
+
+      let practicalStartBase = new Date('2027-03-15');
+      let practicalBlocks = [];
+
+      function calculateBlocks() {
+        practicalBlocks = [];
+        let current = new Date(practicalStartBase);
+        const endYear = new Date('2027-12-31');
+        let idx = 1;
+
+        while (current <= endYear) {
+          let block = {
+            index: idx++,
+            start: new Date(current),
+            end: new Date(current),
+            weeks: []
+          };
+          block.end.setDate(block.end.getDate() + 34);
+
+          let pointer = new Date(block.start);
+          for (let i = 0; i < 5; i++) {
+            let ws = new Date(pointer);
+            let we = new Date(pointer);
+            we.setDate(we.getDate() + 6);
+            block.weeks.push({ start: ws, end: we });
+            pointer.setDate(pointer.getDate() + 7);
+          }
+          practicalBlocks.push(block);
+          current.setDate(current.getDate() + 35);
+        }
+      }
+
+      function getElementTypeAtDate(date) {
+        const d = new Date(date); d.setHours(0,0,0,0);
+        const tS = new Date(theoryPhase.start); tS.setHours(0,0,0,0);
+        const tE = new Date(theoryPhase.end); tE.setHours(0,0,0,0);
+        if (d >= tS && d <= tE) return { type: 'theory' };
+
+        for (let b of practicalBlocks) {
+          const bS = new Date(b.start); bS.setHours(0,0,0,0);
+          const bE = new Date(b.end); bE.setHours(0,0,0,0);
+          if (d >= bS && d <= bE) return { type: 'practical', index: b.index };
+        }
+        return null;
+      }
+
+      function renderAnnualCalendar() {
+        const container = document.getElementById('calendarContainer');
+        container.innerHTML = '';
+        for (let m = 0; m < 12; m++) {
+          const mDiv = document.createElement('div');
+          mDiv.className = 'month';
+          mDiv.innerHTML = `<div class="month-name">${months[m]}</div>`;
+          const grid = document.createElement('div');
+          grid.className = 'calendar-grid';
+          dayNames.forEach(d => grid.innerHTML += `<div class="day-header">${d}</div>`);
+
+          const first = new Date(2027, m, 1);
+          let offset = first.getDay() - 1; if (offset === -1) offset = 6;
+          for (let i = 0; i < offset; i++) grid.innerHTML += `<div class="day other-month"></div>`;
+
+          const days = new Date(2027, m + 1, 0).getDate();
+          for (let d = 1; d <= days; d++) {
+            const date = new Date(2027, m, d);
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'day';
+            dayDiv.textContent = d;
+            const match = getElementTypeAtDate(date);
+            if (match) {
+              if (match.type === 'theory') dayDiv.classList.add('highlight-theory');
+              else dayDiv.classList.add(`highlight-${(match.index - 1) % 10 + 1}`);
+            }
+            grid.appendChild(dayDiv);
+          }
+          mDiv.appendChild(grid);
+          container.appendChild(mDiv);
+        }
+      }
+
+      function renderCards() {
+        const container = document.getElementById('blocksContainer');
+        container.innerHTML = '';
+
+        // Fase Teoría
+        const tCard = document.createElement('div');
+        tCard.className = 'block-card theory';
+        tCard.innerHTML = `
+          <span class="block-tag" style="background:var(--theory-color); color: #333;">Formación Digital</span>
+          <span class="block-dates">Teoría Online (Común)</span>
+          <p style="font-weight:700; color:var(--text-dark);">${formatRange(theoryPhase.start, theoryPhase.end)}</p>
+          <div class="capacity-section" style="background:linear-gradient(135deg, #fffdf5 0%, #fff 100%)">
+            <span class="capacity-title">Horas lectivas: 112h</span>
+            <p style="font-size:0.85rem; font-weight: 600; color: #64748b;">Clases en directo grabadas para consulta en el campus.</p>
+          </div>
+        `;
+        container.appendChild(tCard);
+
+        practicalBlocks.forEach(b => {
+          const card = document.createElement('div');
+          const colorIdx = (b.index - 1) % 10 + 1;
+          card.className = `block-card b${colorIdx}`;
+          card.innerHTML = `
+            <span class="block-tag">Prácticas Presenciales</span>
+            <span class="block-dates">Bloque de Prácticas ${b.index}</span>
+            <p style="font-weight:700; color:var(--text-dark); margin-bottom:14px;">${formatRange(b.start, b.end)}</p>
+            
+            <div class="capacity-section">
+              <span class="capacity-title">Desglose de Días y Horas</span>
+              <div class="capacity-item"><span>Cuidados (8h/día, 5d/s)</span><span class="cap-tag cap-care">25 días (200h)</span></div>
+              <div class="capacity-item"><span>Obs. (5h/día, 3d/s)</span><span class="cap-tag cap-edu">15 días (75h)</span></div>
+              <div class="capacity-item"><span>Edu. Env. (4h/día, 2d/s)</span><span class="cap-tag cap-edu">10 días (40h)</span></div>
+            </div>
+
+            <div class="week-list">
+              ${b.weeks.map((w, i) => `
+                <div class="week-item">
+                  <span class="font-bold text-gray-500">S${i + 1}</span>
+                  <span class="text-gray-600">${formatShort(w.start)} — ${formatShort(w.end)}</span>
+                </div>
+              `).join('')}
+            </div>
+            <button class="edit-btn" onclick="openEdit()">Mover Bloque</button>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      function renderStats() {
+        const container = document.getElementById('capacityStats');
+        const num = practicalBlocks.length;
+        // The limit is the number of care slots available (2 per block)
+        const totalCapacity = num * 2;
+        
+        container.innerHTML = `
+          <div class="stat-grid">
+            <div class="stat-item">
+              <div class="stat-val">${totalCapacity}</div>
+              <div class="stat-lab">Plazas Máximas / Año</div>
+            </div>
+          </div>
+        `;
+      }
+
+      function formatShort(d) { return d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }); }
+      function formatRange(s, e) { return `${s.getDate()} de ${months[s.getMonth()]} al ${e.getDate()} de ${months[e.getMonth()]}`; }
+
+      function openEdit() {
+        document.getElementById('editStartDate').value = practicalStartBase.toISOString().split('T')[0];
+        document.getElementById('editModal').style.display = 'flex';
+      }
+
+      function closeModal() { document.getElementById('editModal').style.display = 'none'; }
+      function saveEdit() {
+        const d = new Date(document.getElementById('editStartDate').value);
+        if (!isNaN(d.getTime())) { practicalStartBase = d; updateApp(); closeModal(); window.scrollTo({top:0, behavior:'smooth'}); }
+      }
+
+      function updateApp() {
+        calculateBlocks();
+        renderAnnualCalendar();
+        renderCards();
+        renderStats();
+      }
+      updateApp();
+    </script>
+  </body>
+</html>
