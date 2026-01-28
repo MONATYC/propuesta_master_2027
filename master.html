@@ -9,15 +9,8 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="calendario.css">
     <style>
-      :root {
-        --primary: #41a86b;
-        --t1: #ffd166;
-        --t2: #fde2bd;
-        --t3: #8eecf5;
-        --tfm: #333333;
-        --practicas: #d4f1be;
-      }
       body {
         font-family: "Montserrat", sans-serif;
         background-color: #333333;
@@ -26,63 +19,6 @@
       }
       .nav-link:hover { color: #41a86b; }
       
-      .annual-calendar {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-      }
-
-      .month {
-        padding: 16px;
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 20px;
-        background: rgba(255,255,255,0.05);
-        backdrop-filter: blur(10px);
-      }
-
-      .month-name {
-        font-weight: 800;
-        text-align: center;
-        margin-bottom: 12px;
-        color: var(--primary);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-size: 0.85rem;
-      }
-
-      .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 3px;
-        text-align: center;
-        font-size: 0.75rem;
-      }
-
-      .day-header {
-        font-weight: 700;
-        padding: 6px 0;
-        color: #666;
-        text-transform: uppercase;
-        font-size: 0.65rem;
-      }
-
-      .day {
-        padding: 8px 0;
-        border-radius: 8px;
-        position: relative;
-        transition: all 0.2s;
-        font-weight: 500;
-        color: #ccc;
-      }
-
-      .day.other-month { opacity: 0.1; }
-
-      .highlight-t1 { background-color: var(--t1); color: #333; font-weight: 700; }
-      .highlight-t2 { background-color: var(--t2); color: #333; font-weight: 700; }
-      .highlight-t3 { background-color: var(--t3); color: #333; font-weight: 700; }
-      .highlight-tfm { background-color: var(--primary); color: white; font-weight: 700; }
-      .highlight-practicas { background-color: rgba(212, 241, 190, 0.2); border: 1px dashed var(--practicas); }
-
       @keyframes softReveal {
         from { opacity: 0; filter: blur(4px); }
         to { opacity: 1; filter: blur(0px); }
@@ -92,7 +28,7 @@
       }
     </style>
   </head>
-  <body>
+  <body class="dark-page">
     <div class="min-h-screen pb-12">
       <header class="px-4 md:px-6 pt-12 max-w-5xl mx-auto text-center">
         <nav class="mb-12 flex flex-wrap justify-center gap-4 md:gap-8 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-gray-400">
@@ -112,8 +48,8 @@
             <p class="text-[10px] font-extrabold text-[#41a86b] uppercase tracking-widest leading-tight">Fundació MONA & Fundación de la Universidad de Girona</p>
         </div>
         
-        <h1 class="text-4xl md:text-7xl font-black text-[#41a86b] uppercase mb-4 leading-tight tracking-tighter">Máster en Primatología</h1>
-        <p class="text-xl md:text-2xl text-gray-300 font-bold uppercase tracking-tight mb-8">Máster de formación permanente (postgrado) | Fundació MONA & FUdG</p>
+        <h1 class="text-3xl md:text-5xl lg:text-7xl font-black text-[#41a86b] uppercase mb-4 leading-tight tracking-tighter">Máster en Primatología</h1>
+        <p class="text-lg md:text-xl lg:text-2xl text-gray-300 font-bold uppercase tracking-tight mb-8">Máster de formación permanente (postgrado) | Fundació MONA & FUdG</p>
       </header>
 
       <main class="max-w-6xl mx-auto px-4 mt-12 space-y-12">
@@ -135,7 +71,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="w-4 h-4 rounded bg-[#8eecf5]"></div>
-                    <span class="text-xs font-bold uppercase text-gray-300">T3: Toma de Datos (May-Jun)</span>
+                    <span class="text-xs font-bold uppercase text-gray-300">TI: Teoría de Investigación (May-Jun)</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="w-4 h-4 rounded bg-[#41a86b]"></div>
@@ -147,7 +83,7 @@
                 </div>
             </div>
 
-            <div class="annual-calendar" id="calendar2027"></div>
+            <div class="calendar-wrapper dark-calendar" id="calendar2027"></div>
         </div>
 
         <!-- Calendario 2028 -->
@@ -155,15 +91,68 @@
             <h2 class="text-3xl font-black text-[#41a86b] mb-10 uppercase tracking-tighter flex items-center gap-4">
                 <span>📅</span> Año 2028
             </h2>
-            <div class="annual-calendar" id="calendar2028"></div>
+            <div class="calendar-wrapper dark-calendar" id="calendar2028"></div>
         </div>
 
         <!-- Notas -->
         <div class="bg-[#41a86b]/10 p-8 md:p-10 rounded-[40px] border border-[#41a86b]/20">
             <h3 class="text-xl font-black text-[#41a86b] mb-4 uppercase">Nota sobre las Prácticas e Investigación:</h3>
             <p class="text-lg text-gray-200 leading-relaxed font-medium">
-                Las prácticas de investigación del Máster son flexibles y se pueden realizar <span class="text-[#41a86b] font-bold">desde el 21 de junio</span> (una vez finalizada la teoría presencial T3) hasta la fecha de entrega de la <span class="text-white font-bold underline decoration-[#41a86b]">1ª convocatoria de TFM</span> (diciembre 2027) o hasta la <span class="text-white font-bold underline decoration-[#41a86b]">2ª convocatoria</span> (junio 2028).
+                Las prácticas de investigación del Máster son flexibles y se pueden realizar <span class="text-[#41a86b] font-bold">desde el 21 de junio</span> (una vez finalizada la teoría presencial TI) hasta la fecha de entrega de la <span class="text-white font-bold underline decoration-[#41a86b]">1ª convocatoria de TFM</span> (diciembre 2027) o hasta la <span class="text-white font-bold underline decoration-[#41a86b]">2ª convocatoria</span> (junio 2028).
             </p>
+        </div>
+
+        <!-- Carga Académica Máster -->
+        <div class="summary-wrapper">
+            <div class="summary-box">
+                <div class="summary-title">📜 Carga Académica Máster (60 ECTS)</div>
+                <table class="ects-table">
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Sesiones / Trabajo</th>
+                            <th>ECTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Teoría General (T1 + T2)</td>
+                            <td>Online (136h)</td>
+                            <td>17</td>
+                        </tr>
+                        <tr>
+                            <td>Teoría Aplicada (TI)</td>
+                            <td>Presencial (240h)</td>
+                            <td>13</td>
+                        </tr>
+                        <tr>
+                            <td>Prácticas Investigación (PI)</td>
+                            <td>450h (Presenciales/Campo)</td>
+                            <td>18</td>
+                        </tr>
+                        <tr>
+                            <td>Trabajo Fin de Máster (TFM)</td>
+                            <td>300h (Investigación)</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TOTAL MÁSTER</strong></td>
+                            <td><strong>16 / 10 Meses</strong></td>
+                            <td><strong>60</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="summary-box purple">
+                <div class="summary-title">🎓 Carácter Multidisciplinar</div>
+                <p class="text-sm font-semibold text-gray-300 leading-relaxed mb-4">
+                    La estructura del máster permite al alumno transitar desde la base biológica hasta la investigación avanzada, culminando en un proyecto de investigación original tutorizado.
+                </p>
+                <div class="alert-box !bg-white/5 !border-white/20 !text-white/80">
+                    <strong>📂 Flexibilidad:</strong> Las PI (Prácticas de Investigación) pueden realizarse en Fundació MONA o en otros centros colaboradores internacionales.
+                </div>
+            </div>
         </div>
       </main>
 
@@ -179,7 +168,7 @@
       const phases = {
         t1: { start: new Date(2027, 1, 1), end: new Date(2027, 2, 20) },
         t2: { start: new Date(2027, 3, 2), end: new Date(2027, 4, 9) },
-        t3: { start: new Date(2027, 4, 10), end: new Date(2027, 5, 20) },
+        ti: { start: new Date(2027, 4, 10), end: new Date(2027, 5, 20) },
         practicas: { start: new Date(2027, 5, 21), end: new Date(2028, 5, 4) },
         tfm1: { start: new Date(2027, 11, 6), end: new Date(2027, 11, 19) },
         tfm2: { start: new Date(2028, 5, 5), end: new Date(2028, 5, 18) }
@@ -188,12 +177,12 @@
       function getHighlight(date) {
         const d = new Date(date); d.setHours(0,0,0,0);
         
-        if (d >= phases.tfm1.start && d <= phases.tfm1.end) return 'highlight-tfm';
-        if (d >= phases.tfm2.start && d <= phases.tfm2.end) return 'highlight-tfm';
-        if (d >= phases.t1.start && d <= phases.t1.end) return 'highlight-t1';
-        if (d >= phases.t2.start && d <= phases.t2.end) return 'highlight-t2';
-        if (d >= phases.t3.start && d <= phases.t3.end) return 'highlight-t3';
-        if (d >= phases.practicas.start && d <= phases.practicas.end) return 'highlight-practicas';
+        if (d >= phases.tfm1.start && d <= phases.tfm1.end) return 'tfm';
+        if (d >= phases.tfm2.start && d <= phases.tfm2.end) return 'tfm';
+        if (d >= phases.t1.start && d <= phases.t1.end) return 't1';
+        if (d >= phases.t2.start && d <= phases.t2.end) return 't2';
+        if (d >= phases.ti.start && d <= phases.ti.end) return 'ti';
+        if (d >= phases.practicas.start && d <= phases.practicas.end) return 'prac';
         
         return null;
       }
@@ -202,22 +191,22 @@
         const container = document.getElementById(containerId);
         for (let m = startMonth; m <= endMonth; m++) {
           const mDiv = document.createElement('div');
-          mDiv.className = 'month';
-          mDiv.innerHTML = `<div class="month-name">${monthNames[m]} ${year}</div>`;
+          mDiv.className = 'month-container';
+          mDiv.innerHTML = `<div class="month-header">${monthNames[m]} ${year}</div>`;
           
           const grid = document.createElement('div');
-          grid.className = 'calendar-grid';
-          dayHeaders.forEach(h => grid.innerHTML += `<div class="day-header">${h}</div>`);
+          grid.className = 'day-grid';
+          dayHeaders.forEach(h => grid.innerHTML += `<div class="day-name">${h}</div>`);
 
           const first = new Date(year, m, 1);
           let offset = first.getDay() - 1; if (offset === -1) offset = 6;
-          for (let i = 0; i < offset; i++) grid.innerHTML += `<div class="day other-month"></div>`;
+          for (let i = 0; i < offset; i++) grid.innerHTML += `<div class="day-number empty"></div>`;
 
           const days = new Date(year, m + 1, 0).getDate();
           for (let d = 1; d <= days; d++) {
             const date = new Date(year, m, d);
             const dayDiv = document.createElement('div');
-            dayDiv.className = 'day';
+            dayDiv.className = 'day-number';
             dayDiv.textContent = d;
             
             const hl = getHighlight(date);

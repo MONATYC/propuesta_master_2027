@@ -1,0 +1,481 @@
+/* 
+   SISTEMA DE DISEÑO UNIFICADO - CALENDARIOS Y CRONOGRAMAS
+   Diseño Premium para Propuesta Máster 2027
+*/
+
+:root {
+  --mona-green: #41a86b;
+  --mona-green-light: rgba(65, 168, 107, 0.1);
+  --mona-dark: #333333;
+  --bg-cream: #f5f5f0;
+
+  /* Colores de Bloques Académicos */
+  --color-t1: #ffd166; /* Amarillo cálido */
+  --color-t2: #fde2bd; /* Crema/Melocotón */
+  --color-ti: #8eecf5; /* Cian suave */
+  --color-practica: #d4f1be; /* Verde pálido */
+  --color-tfm: #41a86b; /* Verde MONA */
+  --color-profesional: #cfbaf0; /* Violeta */
+
+  /* Colores para Bloques de Prácticas (Rotación) */
+  --b1: #ffcfd2; --b2: #fde2bd; --b3: #fbf8cc; --b4: #d4f1be; 
+  --b5: #b9fbc0; --b6: #98f5e1; --b7: #8eecf5; --b8: #90dbf4; 
+  --b9: #a3c4f3; --b10: #cfbaf0;
+}
+
+/* --- MACRO CRONOGRAMA (LÍNEA DE TIEMPO) --- */
+.timeline-container {
+  position: relative;
+  padding: 40px 0;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #e5e7eb;
+  transform: translateY(-50%);
+  z-index: 1;
+  border-radius: 2px;
+}
+
+.timeline-progress {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  background: var(--mona-green);
+  transform: translateY(-50%);
+  z-index: 2;
+  border-radius: 2px;
+  transition: width 1s ease-in-out;
+}
+
+.timeline-items {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 3;
+}
+
+.timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100px;
+}
+
+.node-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  border: 4px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-node.active .node-circle {
+  border-color: var(--mona-green);
+  color: var(--mona-green);
+  transform: scale(1.1);
+  box-shadow: 0 10px 15px -3px rgba(65, 168, 107, 0.3);
+}
+
+.timeline-node.dark .node-circle {
+  background: var(--mona-dark);
+  border-color: var(--mona-dark);
+  color: white;
+}
+
+.node-label {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4b5563;
+  line-height: 1.2;
+}
+
+/* --- MICRO CALENDARIO (GRILLA MENSUAL) --- */
+.calendar-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .calendar-wrapper {
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+.month-container {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.03);
+  transition: transform 0.3s ease;
+}
+
+.month-container:hover {
+  transform: translateY(-5px);
+}
+
+.month-header {
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--mona-green);
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.day-name {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #9ca3af;
+  padding-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.day-number {
+  font-size: 0.75rem;
+  padding: 8px 0;
+  border-radius: 8px;
+  color: #4b5563;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.day-number.empty {
+  opacity: 0.1;
+}
+
+/* Estados de los días */
+.day-number.t1 {
+  background: var(--color-t1);
+  color: #333;
+  font-weight: 700;
+}
+.day-number.t2 {
+  background: var(--color-t2);
+  color: #333;
+  font-weight: 700;
+}
+.day-number.ti {
+  background: var(--color-ti);
+  color: #333;
+  font-weight: 700;
+}
+.day-number.prac {
+  background: rgba(212, 241, 190, 0.1);
+  border: 1px dashed #d4f1be;
+  color: #d4f1be;
+  font-weight: 700;
+}
+.day-number.tfm {
+  background: var(--mona-green);
+  color: white;
+  font-weight: 700;
+}
+.day-number.prof {
+  background: var(--color-profesional);
+  color: #444;
+  font-weight: 700;
+}
+
+/* Clases específicas para bloques */
+.day-number.b1 { background: var(--b1); color: #333; }
+.day-number.b2 { background: var(--b2); color: #333; }
+.day-number.b3 { background: var(--b3); color: #333; }
+.day-number.b4 { background: var(--b4); color: #333; }
+.day-number.b5 { background: var(--b5); color: #333; }
+.day-number.b6 { background: var(--b6); color: #333; }
+.day-number.b7 { background: var(--b7); color: #333; }
+.day-number.b8 { background: var(--b8); color: #333; }
+.day-number.b9 { background: var(--b9); color: #333; }
+.day-number.b10 { background: var(--b10); color: #333; }
+
+.day-number:hover:not(.empty) {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+/* LEYENDA UNIFICADA */
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+/* ADAPTACIÓN PARA MODO OSCURO (Master Page) */
+.dark-calendar .month-container {
+  background: rgba(255, 255, 255, 0.03); /* Mucho más transparente y oscuro */
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Borde casi imperceptible */
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2); /* Sombra más profunda y sutil */
+}
+.dark-calendar .month-header {
+  color: var(--mona-green);
+  opacity: 0.9;
+  letter-spacing: 3px;
+}
+.dark-calendar .day-number {
+  color: rgba(209, 213, 223, 0.6); /* Números base menos brillantes */
+}
+
+/* Forzar texto oscuro en días resaltados incluso en modo dark */
+.dark-calendar .day-number.t1,
+.dark-calendar .day-number.t2,
+.dark-calendar .day-number.ti,
+.dark-calendar .day-number.prof,
+.dark-calendar .day-number[class*=" b"] {
+  color: #333 !important;
+}
+
+.dark-calendar .day-name {
+  color: rgba(107, 114, 128, 0.5); /* Nombres de días más tenues */
+}
+
+/* --- TABLAS DE CARGA ACADÉMICA Y RESÚMENES --- */
+.summary-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.summary-box {
+  background: white;
+  border-radius: 32px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border-top: 6px solid var(--mona-green);
+  height: 100%;
+}
+
+.summary-box.purple { border-top-color: var(--b10); }
+.summary-box.orange { border-top-color: #e67e22; }
+
+.summary-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: var(--mona-dark);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ects-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.ects-table th, .ects-table td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.ects-table th {
+  color: #9ca3af;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+}
+
+.ects-table tr:last-child td { 
+  border-bottom: none; 
+  font-weight: 800; 
+  color: var(--mona-green); 
+  font-size: 1rem; 
+  padding-top: 20px;
+}
+
+.alert-box {
+  background: #fff8f1;
+  border-left: 4px solid #e67e22;
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #8c4a00;
+  font-weight: 600;
+}
+
+/* Adaptación para modo oscuro */
+.dark-page .summary-box {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    box-shadow: none;
+    border-color: var(--mona-green);
+}
+.dark-page .summary-title { color: white; }
+.dark-page .ects-table td { color: #d1d5db; border-color: rgba(255,255,255,0.1); }
+.dark-page .ects-table tr:last-child td { color: var(--mona-green); }
+
+/* --- BLOQUES DE PRÁCTICAS Y MODALES --- */
+.blocks-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .blocks-container {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 25px;
+  }
+}
+
+.block-card {
+  background: white;
+  border-radius: 32px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-left: 8px solid #ddd;
+}
+
+.block-card.theory { 
+  border-left-color: var(--color-t1); 
+  background: linear-gradient(135deg, #fffdf5 0%, #fff 100%);
+}
+
+.block-card:hover { 
+  transform: translateY(-5px); 
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+}
+
+/* Bordes de bloques dinámicos */
+.block-card.b1 { border-left-color: var(--b1); }
+.block-card.b2 { border-left-color: var(--b2); }
+.block-card.b3 { border-left-color: var(--b3); }
+.block-card.b4 { border-left-color: var(--b4); }
+.block-card.b5 { border-left-color: var(--b5); }
+.block-card.b6 { border-left-color: var(--b6); }
+.block-card.b7 { border-left-color: var(--b7); }
+.block-card.b8 { border-left-color: var(--b8); }
+.block-card.b9 { border-left-color: var(--b9); }
+.block-card.b10 { border-left-color: var(--b10); }
+
+.block-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: #f3f4f6;
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.block-dates { 
+  font-size: 1.3rem; 
+  font-weight: 800; 
+  margin-bottom: 16px; 
+  display: block; 
+  color: var(--mona-dark); 
+  letter-spacing: -0.5px;
+}
+
+/* Modales e Inputs */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 32px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+
+@media (max-width: 640px) {
+  .month-container {
+    padding: 12px;
+    border-radius: 16px;
+  }
+  .block-card {
+    padding: 20px;
+    border-radius: 20px;
+    border-left-width: 6px;
+  }
+  .block-dates {
+    font-size: 1.1rem;
+  }
+  .ects-table {
+    font-size: 0.8rem;
+  }
+  .ects-table th, .ects-table td {
+    padding: 8px;
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

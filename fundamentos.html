@@ -9,73 +9,14 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="calendario.css">
     <style>
-      :root {
-        --primary: #41a86b;
-        --theory-1: #ffd166;
-        --theory-2: #fde2bd;
-      }
       body {
         font-family: "Montserrat", sans-serif;
         background-color: #f5f5f0;
         color: #333333;
       }
       .nav-link:hover { color: #41a86b; }
-      
-      /* Annual Calendar Styles */
-      .annual-calendar {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-      }
-
-      .month {
-        padding: 16px;
-        border: 1px solid rgba(0,0,0,0.05);
-        border-radius: 20px;
-        background: rgba(255,255,255,0.6);
-        backdrop-filter: blur(10px);
-      }
-
-      .month-name {
-        font-weight: 800;
-        text-align: center;
-        margin-bottom: 12px;
-        color: var(--primary);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-size: 0.85rem;
-      }
-
-      .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 3px;
-        text-align: center;
-        font-size: 0.75rem;
-      }
-
-      .day-header {
-        font-weight: 700;
-        padding: 6px 0;
-        color: #9ca3af;
-        text-transform: uppercase;
-        font-size: 0.65rem;
-        letter-spacing: 0.5px;
-      }
-
-      .day {
-        padding: 8px 0;
-        border-radius: 8px;
-        position: relative;
-        transition: all 0.2s;
-        font-weight: 500;
-      }
-
-      .day.other-month { opacity: 0.1; }
-
-      .highlight-t1 { background-color: var(--theory-1); font-weight: 700; border-radius: 8px; }
-      .highlight-t2 { background-color: var(--theory-2); font-weight: 700; border-radius: 8px; }
 
       @keyframes softReveal {
         from { opacity: 0; filter: blur(4px); }
@@ -107,7 +48,7 @@
         </div>
         
         <h1 class="text-4xl md:text-6xl font-black text-[#41a86b] uppercase mb-2 leading-tight tracking-tighter">Fundamentos de Primatología</h1>
-        <p class="text-xl text-gray-500 font-bold uppercase tracking-tight">Diploma de experto (postgrado) | Fundació MONA & FUdG</p>
+        <p class="text-xl text-gray-500 font-bold uppercase tracking-tight">Diploma de experto (postgrado) |  100% Online | Fundació MONA & FUdG</p>
       </header>
 
       <main class="max-w-5xl mx-auto px-4 mt-12 space-y-8">
@@ -126,7 +67,7 @@
             </div>
             <div class="mt-12 p-6 bg-[#41a86b]/5 rounded-3xl border border-[#41a86b]/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <p class="font-bold text-gray-700 text-lg">Duración: Aprox. 4 Meses</p>
+                    <p class="font-bold text-gray-700 text-lg">Duración: Aprox. 3 Meses</p>
                     <p class="text-gray-500 text-sm mt-1 uppercase tracking-wider font-black">Bloque Teórico Online 100%</p>
                 </div>
                 <div class="flex gap-4">
@@ -147,9 +88,54 @@
             <h2 class="text-2xl font-extrabold text-[#41a86b] mb-10 uppercase tracking-tighter flex items-center gap-3">
                 <span>📅</span> Cronograma de Referencia 2027
             </h2>
-            <div class="annual-calendar" id="calendarContainer"></div>
-            <div class="mt-8 pt-8 border-t border-gray-50 text-center">
-                <p class="text-gray-500 font-medium italic">"Las clases se imparten en directo por videoconferencia y quedan grabadas para su consulta posterior."</p>
+            
+            <div class="calendar-legend mb-8">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--color-t1)"></div>
+                    <span>T1: Biología y Bienestar</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--color-t2)"></div>
+                    <span>T2: Evolución e Investigación</span>
+                </div>
+            </div>
+
+            <div class="calendar-wrapper" id="calendarContainer"></div>
+        </div>
+
+        <!-- Carga Académica -->
+        <div class="summary-wrapper !max-w-3xl mx-auto">
+            <div class="summary-box">
+                <div class="summary-title">📜 Distribución de Carga Académica</div>
+                <table class="ects-table">
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Sesiones / Horas</th>
+                            <th>ECTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>T1: Fundamentos y Bienestar</td>
+                            <td>88h Electivas (Online)</td>
+                            <td>11</td>
+                        </tr>
+                        <tr>
+                            <td>T2: Evolución e Investigación</td>
+                            <td>48h Electivas (Online)</td>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TOTAL PROGRAMA</strong></td>
+                            <td><strong>136h Lectivas</strong></td>
+                            <td><strong>17</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert-box">
+                    <strong>📍 Formato 100% Digital:</strong> Esta titulación se realiza íntegramente a través del campus virtual de la Universidad de Girona.
+                </div>
             </div>
         </div>
       </main>
@@ -168,13 +154,8 @@
 
       function getElementTypeAtDate(date) {
         const d = new Date(date); d.setHours(0,0,0,0);
-        const t1S = new Date(t1Phase.start); t1S.setHours(0,0,0,0);
-        const t1E = new Date(t1Phase.end); t1E.setHours(0,0,0,0);
-        const t2S = new Date(t2Phase.start); t2S.setHours(0,0,0,0);
-        const t2E = new Date(t2Phase.end); t2E.setHours(0,0,0,0);
-
-        if (d >= t1S && d <= t1E) return 't1';
-        if (d >= t2S && d <= t2E) return 't2';
+        if (d >= t1Phase.start && d <= t1Phase.end) return 't1';
+        if (d >= t2Phase.start && d <= t2Phase.end) return 't2';
         return null;
       }
 
@@ -184,27 +165,26 @@
         
         for (let m = 0; m < 5; m++) {
           const mDiv = document.createElement('div');
-          mDiv.className = 'month';
-          mDiv.innerHTML = `<div class="month-name">${months[m]}</div>`;
+          mDiv.className = 'month-container';
+          mDiv.innerHTML = `<div class="month-header">${months[m]}</div>`;
           
           const grid = document.createElement('div');
-          grid.className = 'calendar-grid';
-          dayNames.forEach(d => grid.innerHTML += `<div class="day-header">${d}</div>`);
+          grid.className = 'day-grid';
+          dayNames.forEach(d => grid.innerHTML += `<div class="day-name">${d}</div>`);
 
           const first = new Date(2027, m, 1);
           let offset = first.getDay() - 1; if (offset === -1) offset = 6;
-          for (let i = 0; i < offset; i++) grid.innerHTML += `<div class="day other-month"></div>`;
+          for (let i = 0; i < offset; i++) grid.innerHTML += `<div class="day-number empty"></div>`;
 
           const days = new Date(2027, m + 1, 0).getDate();
           for (let d = 1; d <= days; d++) {
             const date = new Date(2027, m, d);
             const dayDiv = document.createElement('div');
-            dayDiv.className = 'day';
+            dayDiv.className = 'day-number';
             dayDiv.textContent = d;
             
             const type = getElementTypeAtDate(date);
-            if (type === 't1') dayDiv.classList.add('highlight-t1');
-            else if (type === 't2') dayDiv.classList.add('highlight-t2');
+            if (type) dayDiv.classList.add(type);
             
             grid.appendChild(dayDiv);
           }

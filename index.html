@@ -9,12 +9,22 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="calendario.css">
     <style>
       body {
         font-family: "Montserrat", sans-serif;
         background-color: #f5f5f0;
         color: #333333;
         overflow-x: hidden;
+      }
+
+      /* Ocultar scrollbar horizontal pero permitir scroll */
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
       }
 
       /* Estado inicial para animación */
@@ -235,123 +245,130 @@
           <p class="text-gray-500 font-bold uppercase tracking-wider md:tracking-widest text-xs md:text-sm">Niveles de formación y acreditación</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 items-stretch">
           
-          <!-- Plan 1: Fundamentos de primatología T1 + T2 (Online) -->
+          <!-- Plan 1: Fundamentos de primatología -->
           <a href="fundamentos.html" class="block h-full group">
-            <div class="bg-white rounded-[32px] p-5 xl:p-6 shadow-sm border border-gray-100 flex flex-col h-full transform transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
-              <div class="mb-4">
-                <div class="flex justify-between items-center border-b border-gray-50 pb-3">
-                  <span class="bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-tighter">Fundamentos</span>
-                  <span class="text-[9px] font-black text-[#41a86b] uppercase tracking-wider bg-[#41a86b]/5 px-1.5 py-0.5 rounded">4 Meses</span>
+            <div class="bg-white rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 xl:p-8 shadow-sm border border-gray-100 flex flex-col h-full transform transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
+              <div class="mb-4 sm:mb-6">
+                <div class="flex justify-between items-center border-b border-gray-50 pb-3 sm:pb-4">
+                  <span class="bg-gray-100 text-gray-500 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[8px] sm:text-[9px] font-black uppercase tracking-wider">Fundamentos</span>
+                  <span class="text-[8px] sm:text-[9px] font-black text-[#41a86b] uppercase tracking-wider bg-[#41a86b]/10 px-2 py-0.5 sm:py-1 rounded-lg">3 Meses</span>
                 </div>
-                <h3 class="text-xl xl:text-2xl font-extrabold mt-3 leading-tight group-hover:text-[#41a86b] transition-colors uppercase">Fundamentos de Primatología</h3>
-                <p class="text-[10px] font-bold text-gray-400 mt-1">Diploma de experto (postgrado) | Fundació MONA & FUdG</p>
+                <h3 class="text-sm sm:text-base md:text-lg lg:text-xl font-black mt-4 sm:mt-6 leading-[1.1] text-[#41a86b] uppercase transition-colors break-words">Fundamentos de Primatología</h3>
+                <p class="text-[9px] sm:text-[10px] font-bold text-gray-400 mt-2">Diploma de experto (postgrado) | Fundació MONA & FUdG</p>
               </div>
-              <ul class="space-y-3 mb-6 flex-grow">
-                <li class="flex items-start gap-2 text-sm xl:text-base text-gray-800">
-                  <span class="text-[#41a86b] mt-0.5">✓</span>
-                  <span><b class="font-black">T1:</b> <span class="font-medium text-gray-500">Biología, taxonomía, ecología, conservación, legislación y bienestar.</span></span>
+              <ul class="space-y-3 sm:space-y-4 mb-6 sm:mb-8 flex-grow">
+                <li class="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm xl:text-base">
+                  <span class="text-[#41a86b] font-bold flex-shrink-0">✓</span>
+                  <span><b class="font-black text-gray-800">T1:</b> <span class="font-medium text-gray-500">Biología, taxonomía, ecología, conservación, legislación y bienestar.</span></span>
                 </li>
-                <li class="flex items-start gap-2 text-sm xl:text-base text-gray-800">
-                  <span class="text-[#41a86b] mt-0.5">✓</span>
-                  <span><b class="font-black">T2:</b> <span class="font-medium text-gray-500">Evolución y herramientas de investigación aplicada.</span></span>
+                <li class="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm xl:text-base">
+                  <span class="text-[#41a86b] font-bold flex-shrink-0">✓</span>
+                  <span><b class="font-black text-gray-800">T2:</b> <span class="font-medium text-gray-500">Evolución y herramientas de investigación aplicada.</span></span>
                 </li>
               </ul>
-              <div class="pt-4 border-t border-gray-50 flex justify-between items-center">
-                <p class="text-[10px] text-gray-400 font-bold uppercase">Bloque Teórico Online</p>
-                <span class="text-[#41a86b] text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Saber más →</span>
+              <div class="pt-4 sm:pt-6 border-t border-gray-50 flex justify-between items-center">
+                <p class="text-[9px] sm:text-[10px] text-gray-400 font-black uppercase tracking-wider sm:tracking-widest">Bloque Teórico Online</p>
+                <span class="text-[#41a86b] text-[9px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-widest opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline">Saber más →</span>
               </div>
             </div>
           </a>
 
-
-          <!-- Plan 2: Profesional (T1 + Prácticas en MONA + Habilidades Profesionales) -->
+          <!-- Plan 2: Profesional -->
           <a href="diploma_profesional.html" class="block h-full group">
-            <div class="bg-[#effaf3] rounded-[32px] p-5 xl:p-6 shadow-md border-2 border-[#41a86b] flex flex-col h-full transform transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 z-10 relative">
-              <div class="mb-4">
-                <div class="flex justify-between items-center border-b border-[#41a86b]/20 pb-3">
-                  <span class="bg-white text-[#41a86b] px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-tighter shadow-sm">Itinerario Profesional</span>
-                  <span class="text-[9px] font-black text-white uppercase tracking-wider bg-[#41a86b] px-1.5 py-0.5 rounded shadow-sm">6 Meses</span>
+            <div class="bg-[#effaf3] rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 xl:p-8 shadow-sm border-2 border-[#41a86b] flex flex-col h-full transform transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
+              <div class="mb-4 sm:mb-6">
+                <div class="flex justify-between items-center border-b border-[#41a86b]/20 pb-3 sm:pb-4">
+                  <span class="bg-white text-[#41a86b] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[8px] sm:text-[9px] font-black uppercase tracking-wider shadow-sm">Itinerario Profesional</span>
+                  <span class="text-[8px] sm:text-[9px] font-black text-white uppercase tracking-wider bg-[#41a86b] px-2 py-0.5 sm:py-1 rounded-lg shadow-sm">6 Meses</span>
                 </div>
-                <h3 class="text-xl xl:text-2xl font-extrabold mt-3 uppercase text-[#1a5336]">Diploma profesional de trabajo con primates</h3>
-                <p class="text-[10px] font-bold text-[#1a5336]/60 mt-1 uppercase">Diploma de especialización (postgrado) | Fundació MONA & FUdG</p>
+                <h3 class="text-sm sm:text-base md:text-lg lg:text-xl font-black mt-4 sm:mt-6 leading-[1.1] text-[#1a5336] uppercase break-words">Diploma profesional de trabajo con primates</h3>
+                <p class="text-[9px] sm:text-[10px] font-bold text-[#1a5336]/60 mt-2 uppercase">Diploma de especialización (postgrado) | Fundació MONA & FUdG</p>
               </div>
-              <ul class="space-y-3 mb-6 flex-grow">
-                <li class="flex items-start gap-2 text-sm xl:text-base text-[#264636]">
-                  <span class="text-[#41a86b] mt-0.5">✓</span>
-                  <span><b class="font-black">T1:</b> <span class="font-medium text-[#5a8a7a]">Fundamentos de primatología (online).</span></span>
+              <ul class="space-y-3 sm:space-y-4 mb-6 sm:mb-8 flex-grow">
+                <li class="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm xl:text-base">
+                  <span class="text-[#41a86b] font-bold flex-shrink-0">✓</span>
+                  <span><b class="font-black text-[#1a5336]">T1:</b> <span class="font-medium text-[#41a86b]/80">Biología, taxonomía, ecología, conservación, legislación y bienestar.</span></span>
                 </li>
-                <li class="flex items-start gap-2 text-sm xl:text-base text-[#264636]">
-                  <span class="text-[#41a86b] mt-0.5">✓</span>
-                  <span><b class="font-black">TP:</b> <span class="font-medium text-[#5a8a7a]">Teoría profesional (presencial): habilidades de manejo y gestión.</span></span>
+                <li class="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm xl:text-base">
+                  <span class="text-[#41a86b] font-bold flex-shrink-0">✓</span>
+                  <span><b class="font-black text-[#1a5336]">TP:</b> <span class="font-medium text-[#41a86b]/80">Teoría profesional: habilidades de manejo y gestión.</span></span>
                 </li>
-                <li class="flex items-start gap-2 text-sm xl:text-base text-[#264636]">
-                  <span class="text-[#41a86b] mt-0.5">✓</span>
-                  <span><b class="font-black">PP:</b> <span class="font-medium text-[#5a8a7a]">Prácticas profesionalizadoras: estancias de cuidado, educación ambiental y observación de conducta en MONA.</span></span>
+                <li class="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm xl:text-base">
+                  <span class="text-[#41a86b] font-bold flex-shrink-0">✓</span>
+                  <span><b class="font-black text-[#1a5336]">PP:</b> <span class="font-medium text-[#41a86b]/80">Prácticas profesionalizadoras: estancias de cuidado, educación ambiental y observación de conducta.</span></span>
                 </li>
               </ul>
-              <div class="pt-4 border-t border-[#41a86b]/20 flex justify-between items-center">
-                <p class="text-[10px] text-[#1a5336] font-bold uppercase">Enfoque Técnico-Práctico</p>
-                <span class="text-[#41a86b] text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Calendario →</span>
+              <div class="pt-4 sm:pt-6 border-t border-[#41a86b]/20 flex justify-between items-center">
+                <p class="text-[9px] sm:text-[10px] text-[#1a5336] font-black uppercase tracking-wider sm:tracking-widest">Enfoque Técnico-Práctico</p>
+                <span class="text-[#41a86b] text-[9px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-widest opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline">Ver Calendario →</span>
               </div>
             </div>
           </a>
 
-          <!-- Plan 3: Diploma (T1 + T2 + T3: presencial + Metodologías de Campo) -->
+          <!-- Plan 3: Diploma Investigación -->
           <a href="diploma_investigacion.html" class="block h-full group">
-            <div class="bg-white rounded-[32px] p-5 xl:p-6 shadow-sm border border-gray-100 flex flex-col h-full transform transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
-              <div class="mb-4">
-                <div class="flex justify-between items-center border-b border-gray-50 pb-3">
-                  <span class="bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-tighter">Itinerario Científico</span>
-                  <span class="text-[9px] font-black text-[#41a86b] uppercase tracking-wider bg-[#41a86b]/5 px-1.5 py-0.5 rounded">6 Meses</span>
+            <div class="bg-white rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 xl:p-8 shadow-sm border border-gray-100 flex flex-col h-full transform transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
+              <div class="mb-4 sm:mb-6">
+                <div class="flex justify-between items-center border-b border-gray-50 pb-3 sm:pb-4">
+                  <span class="bg-gray-100 text-gray-500 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[8px] sm:text-[9px] font-black uppercase tracking-wider">Itinerario Científico</span>
+                  <span class="text-[8px] sm:text-[9px] font-black text-[#41a86b] uppercase tracking-wider bg-[#41a86b]/10 px-2 py-0.5 sm:py-1 rounded-lg">5 Meses</span>
                 </div>
-                <h3 class="text-xl xl:text-2xl font-extrabold mt-3 uppercase group-hover:text-[#41a86b] transition-colors">Diploma en investigación en primatología</h3>
-                <p class="text-[10px] font-bold text-gray-400 mt-1">Diploma de especialización (postgrado) | Fundació MONA & FUdG</p>
+                <h3 class="text-sm sm:text-base md:text-lg lg:text-xl font-black mt-4 sm:mt-6 leading-[1.1] text-gray-800 uppercase group-hover:text-[#41a86b] transition-colors break-words">Diploma en investigación en primatología</h3>
+                <p class="text-[9px] sm:text-[10px] font-bold text-gray-400 mt-2 uppercase">Diploma de especialización (postgrado) | Fundació MONA & FUdG</p>
               </div>
-              <ul class="space-y-3 mb-6 flex-grow">
-                <li class="flex items-start gap-2 text-sm xl:text-base">
-                  <span class="text-[#41a86b] mt-0.5">✓</span>
-                  <span><b class="font-black">T1 + T2:</b> <span class="font-medium text-gray-500">Fundamentos, evolución y herramientas (online).</span></span>
+              <ul class="space-y-3 sm:space-y-4 mb-6 sm:mb-8 flex-grow">
+                <li class="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm xl:text-base">
+                  <span class="text-[#41a86b] font-bold flex-shrink-0">✓</span>
+                  <span><b class="font-black text-gray-800">T1:</b> <span class="font-medium text-gray-500">Biología, taxonomía, ecología, conservación, legislación y bienestar.</span></span>
                 </li>
-                <li class="flex items-start gap-2 text-sm xl:text-base">
-                  <span class="text-[#41a86b] mt-0.5">✓</span>
-                  <span><b class="font-black">T3:</b> <span class="font-medium text-gray-500">Toma de datos (presencial): recogida, análisis y estadística (6 semanas).</span></span>
+                <li class="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm xl:text-base">
+                  <span class="text-[#41a86b] font-bold flex-shrink-0">✓</span>
+                  <span><b class="font-black text-gray-800">T2:</b> <span class="font-medium text-gray-500">Evolución y herramientas.</span></span>
+                </li>
+                <li class="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm xl:text-base">
+                  <span class="text-[#41a86b] font-bold flex-shrink-0">✓</span>
+                  <span><b class="font-black text-gray-800">TI:</b> <span class="font-medium text-gray-500">Teoría de Investigación.</span></span>
                 </li>
               </ul>
-              <div class="pt-4 border-t border-gray-50 flex justify-between items-center">
-                <p class="text-[10px] text-gray-400 font-bold uppercase">Acceso a Investigación</p>
-                <span class="text-[#41a86b] text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Saber más →</span>
+              <div class="pt-4 sm:pt-6 border-t border-gray-50 flex justify-between items-center">
+                <p class="text-[9px] sm:text-[10px] text-gray-400 font-black uppercase tracking-wider sm:tracking-widest">Acceso a Investigación</p>
+                <span class="text-[#41a86b] text-[9px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-widest opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline">Saber más →</span>
               </div>
             </div>
           </a>
 
-          <!-- Plan 4: Máster (T1 + T2 + T3: presencial + Metodologías de Campo + TFM + Prácticas largas de toma de datos en MONA or in other institutions) -->
+          <!-- Plan 4: Máster -->
           <a href="master.html" class="block h-full group">
-            <div class="bg-[#333333] text-white rounded-[42px] p-7 xl:p-9 shadow-2xl border-4 border-[#41a86b] flex flex-col h-full transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-3xl z-20 relative overflow-hidden">
-              <div class="mb-5">
-                <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                  <span class="bg-white/10 text-gray-300 px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-tighter">Titulación Completa</span>
-                  <span class="text-[9px] font-black text-[#41a86b] uppercase tracking-wider bg-[#41a86b]/10 px-1.5 py-0.5 rounded">10 / 16 Meses</span>
+            <div class="bg-[#333333] text-white rounded-[28px] sm:rounded-[40px] p-5 sm:p-7 xl:p-9 shadow-xl border-2 sm:border-4 border-[#41a86b] flex flex-col h-full transform transition-all duration-300 group-hover:scale-[1.02] z-10 relative">
+              <div class="mb-4 sm:mb-6">
+                <div class="flex justify-between items-center border-b border-white/10 pb-3 sm:pb-4">
+                  <span class="bg-white/10 text-gray-300 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[8px] sm:text-[9px] font-black uppercase tracking-wider">Titulación Completa</span>
+                  <span class="text-[8px] sm:text-[9px] font-black text-[#41a86b] uppercase tracking-wider bg-[#41a86b]/20 px-2 py-0.5 sm:py-1 rounded-lg">10 / 16 Meses</span>
                 </div>
-                <h3 class="text-xl xl:text-2xl font-black mt-3 text-[#41a86b] uppercase">Máster en Primatología</h3>
-                <p class="text-[10px] font-black text-gray-400 mt-1 uppercase">Máster de formación permanente (postgrado) | Fundació MONA & FUdG</p>
+                <h3 class="text-base sm:text-lg md:text-xl lg:text-2xl font-black mt-5 sm:mt-8 leading-[1.1] text-[#41a86b] uppercase break-words">Máster en Primatología</h3>
+                <p class="text-[9px] sm:text-[10px] font-black text-gray-400 mt-2 uppercase tracking-tight leading-relaxed">Máster de formación permanente (postgrado) | Fundació MONA & FUdG</p>
               </div>
-              <ul class="space-y-3 mb-6 flex-grow">
-                <li class="flex items-start gap-2 text-sm xl:text-base">
-                  <span class="text-[#41a86b] mt-0.5">✓</span>
-                  <span><b class="font-black text-[#41a86b]">T1 + T2 + T3:</b> 
-                    <br><span class="font-medium opacity-70">Teoría completa (Online & Presencial).</span></span>
+              <ul class="space-y-4 sm:space-y-6 mb-6 sm:mb-10 flex-grow">
+                <li class="flex items-start gap-3 sm:gap-4 text-xs sm:text-sm xl:text-base">
+                  <span class="text-[#41a86b] font-bold flex-shrink-0">✓</span>
+                  <div>
+                    <h4 class="font-black text-[#41a86b] text-sm sm:text-base xl:text-xl uppercase">T1 + T2 + TI:</h4>
+                    <p class="font-medium opacity-60 text-xs sm:text-sm xl:text-base mt-1">Teoría completa.</p>
+                  </div>
                 </li>
-                <li class="flex items-start gap-2 text-sm xl:text-base">
-                  <span class="text-[#41a86b] mt-0.5">✓</span>
-                  <span><b class="font-black text-[#41a86b]">PI:</b> 
-                    <br><span class="font-medium opacity-70">Prácticas de Investigación + TFM (nacional o internacional).</span></span>
+                <li class="flex items-start gap-3 sm:gap-4 text-xs sm:text-sm xl:text-base">
+                  <span class="text-[#41a86b] font-bold flex-shrink-0">✓</span>
+                  <div>
+                    <h4 class="font-black text-[#41a86b] text-sm sm:text-base xl:text-xl uppercase">PI + TFM:</h4>
+                    <p class="font-medium opacity-60 text-xs sm:text-sm xl:text-base mt-1">Prácticas de Investigación + TFM (nacional o internacional).</p>
+                  </div>
                 </li>
               </ul>
-              <div class="pt-4 border-t border-white/10 flex justify-between items-center">
-                <p class="text-[10px] text-[#41a86b] font-black uppercase tracking-widest">Máxima Acreditación</p>
-                <span class="text-[#41a86b] text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Saber más →</span>
+              <div class="pt-4 sm:pt-6 border-t border-white/10 flex justify-between items-center">
+                <p class="text-[9px] sm:text-[10px] text-[#41a86b] font-black uppercase tracking-wider sm:tracking-widest">Máxima Acreditación</p>
+                <span class="text-[#41a86b] text-[9px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-widest opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline">Inscribirse →</span>
               </div>
             </div>
           </a>
@@ -400,48 +417,49 @@
               </div>
             </div>
 
-            <!-- CRONOGRAMA DE HITOS -->
+            <!-- CRONOGRAMA DE HITOS UNIFICADO -->
             <div class="pt-12 md:pt-16 pb-6 md:pb-8">
               <h3 class="text-xs md:text-sm font-black text-gray-400 uppercase tracking-wide md:tracking-widest mb-12 md:mb-16 text-center italic">Cronograma de la Formación</h3>
-              <div class="relative px-2 md:px-4 max-w-4xl mx-auto">
-                <!-- Línea de fondo (Desktop) -->
-                <div class="absolute top-[28px] left-8 right-8 h-0.5 bg-gray-100 hidden md:block"></div>
+              
+              <div class="timeline-container max-w-4xl mx-auto px-4">
+                <div class="timeline-line"></div>
+                <div class="timeline-progress" style="width: 100%"></div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-7 gap-4 relative">
+                <div class="timeline-items flex justify-start md:justify-around gap-4 sm:gap-6 md:gap-0 overflow-x-auto pb-4 md:pb-0 scrollbar-hide px-2">
                   <!-- Feb -->
-                  <div class="flex flex-col items-center text-center group">
-                    <div class="w-14 h-14 rounded-full bg-[#41a86b] flex items-center justify-center text-white font-black text-xs mb-4 relative z-10 shadow-lg shadow-[#41a86b]/20 transition-transform group-hover:scale-110">FEB</div>
-                    <p class="text-[11px] font-black text-black uppercase leading-tight tracking-tighter">Inicio de la<br>formación</p>
+                  <div class="timeline-node active flex-shrink-0">
+                    <div class="node-circle scale-90 md:scale-100">FEB</div>
+                    <div class="node-label text-[8px] md:text-xs">INICIO<br>FORMACIÓN</div>
                   </div>
-                  <!-- Online 1 -->
-                  <div class="flex flex-col items-center text-center group">
-                    <div class="w-8 h-8 rounded-full bg-[#41a86b] mt-3 mb-7 relative z-10 border-[6px] border-white shadow-sm transition-transform group-hover:scale-125"></div>
-                    <p class="text-[10px] font-bold text-gray-500 uppercase leading-tight">Fin Teoría<br>Online 1</p>
+                  <!-- Mar -->
+                  <div class="timeline-node active flex-shrink-0">
+                    <div class="node-circle scale-90 md:scale-100">MAR</div>
+                    <div class="node-label text-[8px] md:text-xs">FIN TEORÍA<br>(T1)</div>
                   </div>
-                  <!-- Online 2 -->
-                  <div class="flex flex-col items-center text-center group">
-                    <div class="w-8 h-8 rounded-full bg-[#41a86b] mt-3 mb-7 relative z-10 border-[6px] border-white shadow-sm transition-transform group-hover:scale-125"></div>
-                    <p class="text-[10px] font-bold text-gray-500 uppercase leading-tight">Fin Teoría<br>Online 2</p>
+                  <!-- May -->
+                  <div class="timeline-node active flex-shrink-0">
+                    <div class="node-circle scale-90 md:scale-100">MAY</div>
+                    <div class="node-label text-[8px] md:text-xs">FIN TEORÍA<br>(T2)</div>
                   </div>
-                  <!-- Prácticas -->
-                  <div class="flex flex-col items-center text-center group">
-                    <div class="w-8 h-8 rounded-full bg-[#41a86b] mt-3 mb-7 relative z-10 border-[6px] border-white shadow-sm transition-transform group-hover:scale-125"></div>
-                    <p class="text-[10px] font-bold text-gray-500 uppercase leading-tight">Prácticas<br>en Centro</p>
+                  <!-- Jun -->
+                  <div class="timeline-node active flex-shrink-0">
+                    <div class="node-circle scale-90 md:scale-100">JUN</div>
+                    <div class="node-label text-[8px] md:text-xs">PRÁCTICAS<br>CENTRO</div>
                   </div>
-                  <!-- Presencial -->
-                  <div class="flex flex-col items-center text-center group">
-                    <div class="w-8 h-8 rounded-full bg-[#41a86b] mt-3 mb-7 relative z-10 border-[6px] border-white shadow-sm transition-transform group-hover:scale-125"></div>
-                    <p class="text-[10px] font-bold text-gray-500 uppercase leading-tight">Bloque 3<br>Presencial</p>
+                  <!-- Jul -->
+                  <div class="timeline-node active flex-shrink-0">
+                    <div class="node-circle scale-90 md:scale-100">JUL</div>
+                    <div class="node-label text-[8px] md:text-xs">BLOQUE 3<br>(TI/TP)</div>
                   </div>
                   <!-- Dic -->
-                  <div class="flex flex-col items-center text-center group">
-                    <div class="w-14 h-14 rounded-full bg-[#333333] flex items-center justify-center text-white font-black text-xs mb-4 relative z-10 shadow-lg transition-transform group-hover:scale-110">DIC</div>
-                    <p class="text-[11px] font-black text-black uppercase leading-tight tracking-tighter">TFM 1ª<br>Convocatoria</p>
+                  <div class="timeline-node active dark flex-shrink-0">
+                    <div class="node-circle scale-90 md:scale-100">DIC</div>
+                    <div class="node-label text-[8px] md:text-xs">TFM 1ª<br>CONVO</div>
                   </div>
                   <!-- Jun +1 -->
-                  <div class="flex flex-col items-center text-center group">
-                    <div class="w-14 h-14 rounded-full border-4 border-[#41a86b] bg-white flex items-center justify-center text-[#41a86b] font-black text-xs mb-4 relative z-10 transition-transform group-hover:scale-110">JUN</div>
-                    <p class="text-[10px] font-black text-black uppercase leading-tight tracking-tighter">TFM 2ª<br>Convocatoria</p>
+                  <div class="timeline-node flex-shrink-0">
+                    <div class="node-circle scale-90 md:scale-100" style="border-style: dashed; border-width: 2px;">JUN</div>
+                    <div class="node-label text-[8px] md:text-xs">TFM 2ª<br>CONVO</div>
                   </div>
                 </div>
               </div>
@@ -468,15 +486,15 @@
               <ul class="space-y-4">
                 <li class="flex gap-4">
                   <span class="text-[#41a86b] font-black">T1</span>
-                  <p class="text-sm text-gray-300"><b class="text-white">Fundamentos:</b> Biología, taxonomía y ecología, conservación, legislación y bienestar de primates (online).</p>
+                  <p class="text-sm text-gray-300"><b class="text-white">Fundamentos:</b> Biología, taxonomía y ecología, conservación, legislación y bienestar de primates.</p>
                 </li>
                 <li class="flex gap-4">
                   <span class="text-[#41a86b] font-black">T2</span>
-                  <p class="text-sm text-gray-300"><b class="text-white">Herramientas:</b> Evolución y herramientas de investigación aplicada (online).</p>
+                  <p class="text-sm text-gray-300"><b class="text-white">Herramientas:</b> Evolución y herramientas de investigación aplicada.</p>
                 </li>
                 <li class="flex gap-4">
-                  <span class="text-[#41a86b] font-black">T3</span>
-                  <p class="text-sm text-gray-300"><b class="text-white">Toma de Datos:</b> Métodos de recogida de datos, análisis y estadística aplicada a la primatología (presencial).</p>
+                  <span class="text-[#41a86b] font-black">TI</span>
+                  <p class="text-sm text-gray-300"><b class="text-white">Teoría de Investigación:</b> Métodos de recogida de datos, análisis y estadística aplicada a la primatología.</p>
                 </li>
               </ul>
             </div>
@@ -500,47 +518,6 @@
               </ul>
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- ========== PUNTOS PENDIENTES ========== -->
-      <section class="max-w-3xl mx-auto px-4 md:px-6 my-12 md:my-16">
-        <div
-          class="bg-white p-6 md:p-8 lg:p-10 rounded-[32px] md:rounded-[40px] border-l-[8px] md:border-l-[12px] border-[#41a86b] shadow-sm"
-        >
-          <h3
-            class="text-xl md:text-2xl font-extrabold mb-6 md:mb-8 uppercase tracking-tight text-gray-800"
-          >
-            PUNTOS A EXPLORAR
-          </h3>
-          <ul class="space-y-6">
-            <li class="flex items-start gap-5">
-              <span
-                class="w-8 h-8 rounded-full bg-[#41a86b]/20 flex items-center justify-center text-[#41a86b] text-base font-black flex-shrink-0"
-                >?</span
-              >
-              <span class="text-lg text-gray-700 font-bold leading-snug"
-                >Prácticas de Educación Ambiental en el itinerario
-                profesional: ¿seguimos con el formato de MONATYC?</span
-              >
-            </li>
-            <li class="flex items-start gap-5">
-              <span
-                class="w-8 h-8 rounded-full bg-[#41a86b]/20 flex items-center justify-center text-[#41a86b] text-base font-black flex-shrink-0"
-                >?</span
-              >
-              <span class="text-lg text-gray-700 font-bold leading-snug"
-                >¿Es posible una matrícula de "año y medio", con posibilidad de acabar antes con FUdG?</span
-              >
-            </li>
-            <li class="flex items-start gap-5">
-              <span
-                class="w-8 h-8 rounded-full bg-[#41a86b]/20 flex items-center justify-center text-[#41a86b] text-base font-black flex-shrink-0"
-                >?</span
-              >
-               <span class="text-lg text-gray-700 font-bold leading-snug">Confirmación de la disponibilidad de docentes en general para determinar su participación en los bloques online o presencial.</span>
-            </li>
-          </ul>
         </div>
       </section>
 
