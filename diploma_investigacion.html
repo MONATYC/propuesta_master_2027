@@ -17,6 +17,18 @@
         color: #333333;
       }
       .nav-link:hover { color: #41a86b; }
+
+      /* Prácticas de investigación en tema claro: borde punteado y grises suaves */
+      .day-number.pi {
+        border: 1px dashed #9ca3af;
+        color: #6b7280;
+        font-weight: 700;
+      }
+      .day-number.pi.pi-b1 { background: rgba(156, 163, 175, 0.06); }
+      .day-number.pi.pi-b2 { background: rgba(156, 163, 175, 0.1); }
+      .day-number.pi.pi-b3 { background: rgba(156, 163, 175, 0.14); }
+      .day-number.pi.pi-b4 { background: rgba(156, 163, 175, 0.08); }
+      .day-number.pi.pi-b5 { background: rgba(156, 163, 175, 0.12); }
     </style>
   </head>
   <body>
@@ -54,9 +66,9 @@
                 </div>
             </div>
             <div class="border-l-4 border-gray-200 pl-6">
-                <h3 class="text-xl font-bold">TI (Presencial)</h3>
+                <h3 class="text-xl font-bold">PI (Presencial)</h3>
                 <p class="text-gray-600 font-medium">Teoría de Investigación: recogida de datos, análisis y estadística.</p>
-                <p class="text-[10px] font-black px-2 py-0.5 bg-[#8eecf5] rounded uppercase mt-3 inline-block">TI: 10 de mayo - 20 de junio (6 semanas)</p>
+                <p class="text-[10px] font-black px-2 py-0.5 bg-[#8eecf5] rounded uppercase mt-3 inline-block">PI: 10 de mayo - 20 de junio (6 semanas)</p>
             </div>
         </div>
 
@@ -76,8 +88,8 @@
                     <span>T2 Online</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: var(--color-ti)"></div>
-                    <span>TI Presencial</span>
+                    <div class="legend-color" style="background: rgba(156, 163, 175, 0.12); border: 1px dashed #9ca3af;"></div>
+                    <span>PI (bloques de 8 semanas)</span>
                 </div>
             </div>
 
@@ -140,20 +152,39 @@
     </div>
 
     <script>
-      const months = ["Febrero", "Marzo", "Abril", "Mayo", "Junio"];
-      const monthIndices = [1, 2, 3, 4, 5];
+      const months = [
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre"
+      ];
+      const monthIndices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
       const dayNames = ["L", "M", "X", "J", "V", "S", "D"];
       
       const t1Phase = { start: new Date(2027, 1, 1), end: new Date(2027, 2, 20) };
       const t2Phase = { start: new Date(2027, 3, 2), end: new Date(2027, 4, 9) };
-      const tiPhase = { start: new Date(2027, 4, 10), end: new Date(2027, 5, 20) };
+      const piPhase = { start: new Date(2027, 4, 10), end: new Date(2027, 11, 31) };
+      const piBlockDays = 56; // 8 semanas
 
-      function getElementTypeAtDate(date) {
+      function getElementClassesAtDate(date) {
         const d = new Date(date); d.setHours(0,0,0,0);
-        if (d >= t1Phase.start && d <= t1Phase.end) return 't1';
-        if (d >= t2Phase.start && d <= t2Phase.end) return 't2';
-        if (d >= tiPhase.start && d <= tiPhase.end) return 'ti';
-        return null;
+        if (d >= t1Phase.start && d <= t1Phase.end) return ['t1'];
+        if (d >= t2Phase.start && d <= t2Phase.end) return ['t2'];
+        if (d >= piPhase.start && d <= piPhase.end) {
+          const msPerDay = 1000 * 60 * 60 * 24;
+          const diffDays = Math.floor((d - piPhase.start) / msPerDay);
+          const blockIndex = Math.floor(diffDays / piBlockDays) + 1;
+          const cappedBlock = Math.min(blockIndex, 5);
+          return ['pi', `pi-b${cappedBlock}`];
+        }
+        return [];
       }
 
       function renderCalendar() {
@@ -178,8 +209,8 @@
             dayDiv.className = 'day-number';
             dayDiv.textContent = d;
             
-            const type = getElementTypeAtDate(date);
-            if (type) dayDiv.classList.add(type);
+            const classes = getElementClassesAtDate(date);
+            if (classes.length) dayDiv.classList.add(...classes);
             
             grid.appendChild(dayDiv);
           }
