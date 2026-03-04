@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Diploma profesional de cuidador de primates (Diploma de especialización) - Fundació MONA & FUdG</title>
+    <title>Diploma profesional de cuidador de primates - Fundació MONA & FUdG</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap"
@@ -69,7 +69,7 @@
         </nav>
 
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-[#41a86b] leading-none mb-4 tracking-tighter uppercase">
-          Diploma profesional de cuidador de primates (Diploma de especialización)
+          Diploma profesional de cuidador de primates
         </h1>
         <p class="text-xl md:text-2xl text-gray-500 font-bold uppercase tracking-tight mb-8">
           (Diploma de especialización) | Fundació MONA & FUdG
@@ -107,7 +107,7 @@
       <section class="max-w-6xl mx-auto px-4 md:px-6 mb-12">
         <div class="bg-white p-6 md:p-8 lg:p-10 rounded-[32px] md:rounded-[40px] shadow-lg border border-gray-100">
           <h2 class="text-xl md:text-2xl font-extrabold text-[#41a86b] mb-8 uppercase tracking-tighter flex items-center gap-3">
-            <span>📅</span> Cronograma de Referencia 2026
+            <span>📅</span> Cronograma de Referencia 2027
           </h2>
           <div class="calendar-wrapper" id="calendarContainer"></div>
         </div>
@@ -243,22 +243,22 @@
       const dayNames = ["L", "M", "X", "J", "V", "S", "D"];
       
       const theoryPhase = {
-        start: new Date(2026, 1, 2),
-        end: new Date(2026, 2, 21)
+        start: new Date(2027, 1, 1),
+        end: new Date(2027, 2, 20)
       };
 
-      let practicalStartBase = new Date(2026, 2, 31);
+      let practicalStartBase = new Date(2027, 2, 30);
       let practicalBlocks = [];
 
       function calculateBlocks() {
         practicalBlocks = [];
-        const endYear = new Date(2026, 11, 31);
+        const endYear = new Date(2027, 11, 31);
         
-        // Bloque 1: Especial (empieza martes 31 Mar para evitar Semana Santa 2026)
+        // Bloque 1: Especial (empieza martes 30 Mar para mantener el mismo patrón semanal)
         let b1 = {
           index: 1,
-          start: new Date(2026, 2, 31),
-          end: new Date(2026, 4, 3),
+          start: new Date(2027, 2, 30),
+          end: new Date(2027, 4, 2),
           weeks: []
         };
         let p1 = new Date(b1.start);
@@ -272,7 +272,7 @@
         practicalBlocks.push(b1);
 
         // Bloques siguientes: Empiezan en lunes
-        let current = new Date(2026, 4, 4);
+        let current = new Date(2027, 4, 3);
         let idx = 2;
 
         while (current <= endYear) {
@@ -322,13 +322,13 @@
           grid.className = 'day-grid';
           dayNames.forEach(d => grid.innerHTML += `<div class="day-name">${d}</div>`);
 
-          const first = new Date(2026, m, 1);
+          const first = new Date(2027, m, 1);
           let offset = first.getDay() - 1; if (offset === -1) offset = 6;
           for (let i = 0; i < offset; i++) grid.innerHTML += `<div class="day-number empty"></div>`;
 
-          const days = new Date(2026, m + 1, 0).getDate();
+          const days = new Date(2027, m + 1, 0).getDate();
           for (let d = 1; d <= days; d++) {
-            const date = new Date(2026, m, d);
+            const date = new Date(2027, m, d);
             const dayDiv = document.createElement('div');
             dayDiv.className = 'day-number';
             dayDiv.textContent = d;
@@ -402,7 +402,7 @@
         container.innerHTML = `
           <div style="padding: 20px 0;">
             <div style="font-size: 5rem; font-weight: 900; color: var(--mona-green); line-height: 1; letter-spacing: -4px;">${totalCapacity}</div>
-            <div style="font-size: 1.2rem; font-weight: 800; color: var(--mona-dark); text-transform: uppercase;">Cupos Máximos 2026</div>
+            <div style="font-size: 1.2rem; font-weight: 800; color: var(--mona-dark); text-transform: uppercase;">Cupos Máximos 2027</div>
           </div>
         `;
       }
