@@ -95,10 +95,13 @@
 
         <div class="flex gap-4 justify-center flex-wrap">
           <div class="info-pill" style="border-left: 4px solid var(--theory-color);">
-            <span>🎥</span> Clases online en directo (se grabarán para consulta previa a las prácticas).
+            <span>🎥</span> Clases online en directo con grabación disponible para consulta posterior.
           </div>
           <div class="info-pill" style="border-left: 4px solid var(--primary);">
             <span>🎓</span> Carga Total: 30 Créditos ECTS.
+          </div>
+          <div class="info-pill" style="border-left: 4px solid #cfbaf0;">
+            <span>📚</span> Estructura: T1 + TP + PP + TPP.
           </div>
         </div>
       </header>
@@ -121,7 +124,7 @@
             <div class="summary-title">👥 Capacidad Máxima de la Formación</div>
             <div id="capacityStats"></div>
             <div class="alert-box" style="background: #fffdf5; border-left: 4px solid #f39c12; color: #a67c00;">
-              <strong>⚠️ Limitación del Programa:</strong> El aforo total anual está limitado a 18 personas por la rotación obligatoria en el área de Cuidados (máx. 2 alumnos simultáneos).
+              <strong>⚠️ Limitación del Programa:</strong> El aforo total anual está limitado a 16 personas por la rotación obligatoria en el área de Cuidados (máx. 2 alumnos simultáneos).
             </div>
           </div>
 
@@ -139,33 +142,28 @@
               <tbody>
                 <tr>
                   <td>Teoría Online (T1)</td>
-                  <td>99h</td>
-                  <td>12.375</td>
+                  <td>88h</td>
+                  <td>11</td>
                 </tr>
                 <tr>
-                  <td>Teoría Profesional (TP)</td>
+                  <td>Teoría profesional de cuidado de primates (TP)</td>
                   <td>24h</td>
                   <td>3</td>
                 </tr>
                 <tr>
-                  <td>Prácticas de Cuidados</td>
-                  <td>200h</td>
-                  <td>9</td>
+                  <td>Prácticas profesional (PP)</td>
+                  <td>308h</td>
+                  <td>14</td>
                 </tr>
                 <tr>
-                  <td>Observación y Edu. Amb.</td>
-                  <td>115h</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>Proyecto Final</td>
+                  <td>Trabajo final del PP (TPP)</td>
                   <td>50h</td>
                   <td>2</td>
                 </tr>
                 <tr>
                   <td><strong>TOTAL PROGRAMA</strong></td>
-                  <td><strong>488h</strong></td>
-                  <td><strong>31.375 ECTS</strong></td>
+                  <td><strong>470h</strong></td>
+                  <td><strong>30 ECTS</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -242,17 +240,21 @@
       const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
       const dayNames = ["L", "M", "X", "J", "V", "S", "D"];
       
-      const theoryPhase = {
+      const t1Phase = {
         start: new Date(2027, 1, 1),
-        end: new Date(2027, 2, 20)
+        end: new Date(2027, 2, 19)
       };
 
-      let practicalStartBase = new Date(2027, 2, 30);
+      const tpPhase = {
+        start: new Date(2027, 4, 10),
+        end: new Date(2027, 4, 14)
+      };
+
       let practicalBlocks = [];
 
       function calculateBlocks() {
         practicalBlocks = [];
-        const endYear = new Date(2027, 11, 31);
+        const practicalEnd = new Date(2027, 11, 21);
         
         // Bloque 1: Especial (empieza martes 30 Mar para mantener el mismo patrón semanal)
         let b1 = {
@@ -275,7 +277,7 @@
         let current = new Date(2027, 4, 3);
         let idx = 2;
 
-        while (current <= endYear) {
+        while (current <= practicalEnd) {
           let block = {
             index: idx++,
             start: new Date(current),
@@ -283,12 +285,17 @@
             weeks: []
           };
           block.end.setDate(block.end.getDate() + 34);
+          if (block.end > practicalEnd) {
+            block.end = new Date(practicalEnd);
+          }
 
           let pointer = new Date(block.start);
           for (let i = 0; i < 5; i++) {
             let ws = new Date(pointer);
             let we = new Date(pointer);
             we.setDate(we.getDate() + 6);
+            if (ws > practicalEnd) break;
+            if (we > practicalEnd) we = new Date(practicalEnd);
             block.weeks.push({ start: ws, end: we });
             pointer.setDate(pointer.getDate() + 7);
           }
@@ -299,9 +306,13 @@
 
       function getElementTypeAtDate(date) {
         const d = new Date(date); d.setHours(0,0,0,0);
-        const tS = new Date(theoryPhase.start); tS.setHours(0,0,0,0);
-        const tE = new Date(theoryPhase.end); tE.setHours(0,0,0,0);
-        if (d >= tS && d <= tE) return { type: 'theory' };
+        const t1S = new Date(t1Phase.start); t1S.setHours(0,0,0,0);
+        const t1E = new Date(t1Phase.end); t1E.setHours(0,0,0,0);
+        if (d >= t1S && d <= t1E) return { type: 't1' };
+
+        const tpS = new Date(tpPhase.start); tpS.setHours(0,0,0,0);
+        const tpE = new Date(tpPhase.end); tpE.setHours(0,0,0,0);
+        if (d >= tpS && d <= tpE) return { type: 'tp' };
 
         for (let b of practicalBlocks) {
           const bS = new Date(b.start); bS.setHours(0,0,0,0);
@@ -334,7 +345,8 @@
             dayDiv.textContent = d;
             const match = getElementTypeAtDate(date);
             if (match) {
-              if (match.type === 'theory') dayDiv.classList.add('t1');
+              if (match.type === 't1') dayDiv.classList.add('t1');
+              else if (match.type === 'tp') dayDiv.classList.add('prof');
               else if (match.type === 'practical') {
                 const colorIdx = (match.index - 1) % 10 + 1;
                 dayDiv.classList.add(`b${colorIdx}`);
@@ -356,14 +368,27 @@
         tCard.className = 'block-card theory';
         tCard.innerHTML = `
           <span class="block-tag" style="background:#ffd166; color: #333;">Formación Online</span>
-          <span class="block-dates">Teoría Online (T1)</span>
-          <p style="font-weight:700; color:#333;">${formatRange(theoryPhase.start, theoryPhase.end)}</p>
+          <span class="block-dates">Fundamentos de Primatología: biología, bienestar y conservación (T1)</span>
+          <p style="font-weight:700; color:#333;">${formatRange(t1Phase.start, t1Phase.end)}</p>
           <div class="capacity-section" style="background:linear-gradient(135deg, #fffdf5 0%, #fff 100%)">
-            <span class="capacity-title">Horas: 99h | Créditos: 12,375 ECTS</span>
-            <p style="font-size:0.85rem; font-weight: 600; color: #64748b;">Clases online en directo para la base teórica profesional.</p>
+            <span class="capacity-title">Horas: 88h | Créditos: 11 ECTS</span>
+            <p style="font-size:0.85rem; font-weight: 600; color: #64748b;">Clases online en directo para la base teórica del itinerario profesional.</p>
           </div>
         `;
         container.appendChild(tCard);
+
+        const tpCard = document.createElement('div');
+        tpCard.className = 'block-card theory';
+        tpCard.innerHTML = `
+          <span class="block-tag" style="background:#cfbaf0; color: #333;">Teoría Aplicada</span>
+          <span class="block-dates">Teoría profesional de cuidado de primates (TP)</span>
+          <p style="font-weight:700; color:#333;">${formatRange(tpPhase.start, tpPhase.end)}</p>
+          <div class="capacity-section" style="background:linear-gradient(135deg, #faf5ff 0%, #fff 100%)">
+            <span class="capacity-title">Horas: 24h | Créditos: 3 ECTS</span>
+            <p style="font-size:0.85rem; font-weight: 600; color: #64748b;">Sesión presencial intensiva orientada al manejo, cuidado y organización del trabajo en santuario.</p>
+          </div>
+        `;
+        container.appendChild(tpCard);
 
         practicalBlocks.forEach(b => {
           const card = document.createElement('div');
@@ -375,10 +400,9 @@
             <p style="font-weight:700; color:#333; margin-bottom:14px;">${formatRange(b.start, b.end)}</p>
             
             <div class="capacity-section">
-              <span class="capacity-title">Teoría Profesional (TP) + Prácticas (PP)</span>
-              <div class="capacity-item"><span>TP: Manejo y Gestión (24h)</span><span class="cap-tag" style="background:#ffd166; color:#333">3 ECTS</span></div>
-              <div class="capacity-item"><span>PP: Cuidados (200h)</span><span class="cap-tag" style="background:#e67e22">9 ECTS</span></div>
-              <div class="capacity-item"><span>PP: Obs/Edu (115h)</span><span class="cap-tag" style="background:#4a90e2">5 ECTS</span></div>
+              <span class="capacity-title">Prácticas profesional (PP)</span>
+              <div class="capacity-item"><span>Cuidados de primates (198h)</span><span class="cap-tag" style="background:#e67e22">9 ECTS</span></div>
+              <div class="capacity-item"><span>Observación y educación ambiental (110h)</span><span class="cap-tag" style="background:#4a90e2">5 ECTS</span></div>
             </div>
 
             <div class="week-list">
